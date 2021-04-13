@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import LogSigModal from "./logSigModal";
+import LoginModal from "./LoginModal";
 Modal.setAppElement("#root");
 
 function LogSigBtn() {
@@ -14,10 +14,10 @@ function LogSigBtn() {
       transform: "translate(-50%, -50%)",
     },
   };
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [isModalOpen, setIsOpen] = React.useState(false);
 
   function toggleModal() {
-    setIsOpen(!modalIsOpen);
+    setIsOpen(!isModalOpen);
   }
 
   return (
@@ -32,10 +32,10 @@ function LogSigBtn() {
         Login
       </button>
       <Modal
-        isOpen={modalIsOpen}
+        isOpen={isModalOpen}
         style={customStyles}
         toggleModal={toggleModal}>
-        <LogSigModal />
+        <LoginModal />
       </Modal>
     </div>
   );

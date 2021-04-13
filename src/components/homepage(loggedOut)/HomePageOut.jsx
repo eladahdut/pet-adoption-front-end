@@ -4,7 +4,7 @@ import Intro from "./Intro";
 
 function HomePageOut() {
   return (
-    <>
+    <div>
       <div>
         <Header />
       </div>
@@ -12,10 +12,10 @@ function HomePageOut() {
       <br />
       <br />
       <br />
-      <div className="container col-6 bg-light">
+      <div className="container col-6 bg-light rounded p-3">
         <Intro />
       </div>
-    </>
+    </div>
   );
 }
 
