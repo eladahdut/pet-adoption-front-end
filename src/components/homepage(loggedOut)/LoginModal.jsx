@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import SignInModal from "./SignInModal";
+import SignUpModal from "./SignUpModal";
 Modal.setAppElement("#root");
 
 function LogSigModal() {
@@ -17,57 +17,63 @@ function LogSigModal() {
   const [isModalOpen, setIsOpen] = React.useState(false);
 
   function toggleModal() {
+    // e.preventDefault();
     setIsOpen(!isModalOpen);
   }
 
   return (
-    <form>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">
-          Email address
-        </label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-        />
-        <div id="emailHelp" class="form-text">
-          We'll never share your email with anyone else.
+    <div>
+      <form>
+        <div className="mb-3">
+          <label htmlFor="exampleInputEmail1" className="form-label">
+            Email address
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+          <div id="emailHelp" className="form-text">
+            We'll never share your email with anyone else.
+          </div>
         </div>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">
-          Password
-        </label>
-        <input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-        />
-      </div>
-      <div className="d-flex justify-content-between">
-        <button type="submit" class="btn btn-success">
-          Submit
-        </button>
-        <button
-          onClick={(e) => toggleModal(e)}
-          className="btn btn-outline-warning">
-          Close
-        </button>
-      </div>
-      <div>Forgot your password? click here</div>
-      <div>
-        Not registered? click
-        <button onClick={(e) => toggleModal(e)}>here</button>
-      </div>
-      <Modal style={customStyles} toggleModal={toggleModal}>
-        <SignInModal />
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <div className="d-flex justify-content-between">
+          <button type="submit" className="btn btn-success">
+            Submit
+          </button>
+        </div>
+        <div>
+          Forgot your password?
+          <button className="btn btn-link" onClick={toggleModal}>
+            click here
+          </button>
+        </div>
+        <div>
+          Not registered?
+          <button className="btn btn-link" onClick={toggleModal}>
+            click here
+          </button>
+        </div>
+      </form>
+      <button onClick={toggleModal} className="btn btn-outline-warning">
+        Close
+      </button>
+      <Modal style={customStyles} isOpen={isModalOpen}>
+        <SignUpModal toggleModal={toggleModal} />
       </Modal>
-    </form>
+    </div>
   );
 }
 
 export default LogSigModal;
-// isOpen={isModalOpen}
-//

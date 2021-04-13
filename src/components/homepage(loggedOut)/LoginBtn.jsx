@@ -26,7 +26,7 @@ function LogSigBtn() {
         style={{ padding: "0", marginTop: "0.7rem" }}
         onClick={toggleModal}
         type="button"
-        class="btn btn-outline-dark btn-round"
+        className="btn btn-outline-dark btn-round"
         data-toggle="modal"
         data-target="#loginModal">
         Login
