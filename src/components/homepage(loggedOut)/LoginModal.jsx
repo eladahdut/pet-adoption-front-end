@@ -16,8 +16,8 @@ function LogSigModal() {
   };
   const [isModalOpen, setIsOpen] = React.useState(false);
 
-  function toggleModal() {
-    // e.preventDefault();
+  function toggleModal(e) {
+    e.preventDefault();
     setIsOpen(!isModalOpen);
   }
 
@@ -53,22 +53,19 @@ function LogSigModal() {
             Submit
           </button>
         </div>
-        <div>
+        {/* <div>
           Forgot your password?
           <button className="btn btn-link" onClick={toggleModal}>
             click here
           </button>
-        </div>
+        </div> */}
         <div>
-          Not registered?
-          <button className="btn btn-link" onClick={toggleModal}>
+          Not registered yet?
+          <button className="btn btn-link" onClick={(e) => toggleModal(e)}>
             click here
           </button>
         </div>
       </form>
-      <button onClick={toggleModal} className="btn btn-outline-warning">
-        Close
-      </button>
       <Modal style={customStyles} isOpen={isModalOpen}>
         <SignUpModal toggleModal={toggleModal} />
       </Modal>

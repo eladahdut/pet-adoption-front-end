@@ -36,6 +36,9 @@ function LogSigBtn() {
         style={customStyles}
         toggleModal={toggleModal}>
         <LoginModal />
+        <button onClick={toggleModal} className="btn btn-outline-success">
+          Close
+        </button>
       </Modal>
     </div>
   );
