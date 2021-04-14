@@ -4,7 +4,7 @@ import Intro from "./Intro";
 
 function HomePageOut() {
   return (
-    <div>
+    <div className="text-center">
       <div>
         <Header />
       </div>
@@ -15,6 +15,8 @@ function HomePageOut() {
       <div className="container col-6 bg-light rounded p-3">
         <Intro />
       </div>
+      <br />
+      this will be a link to the search page
     </div>
   );
 }

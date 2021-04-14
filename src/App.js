@@ -1,5 +1,5 @@
-import './App.css';
-import HomePageOut from './components/homepage(loggedOut)/HomePageOut';
+import "./App.css";
+import HomePageOut from "./components/homePage(out)/HomePageOut";
 
 function App() {
   return (
