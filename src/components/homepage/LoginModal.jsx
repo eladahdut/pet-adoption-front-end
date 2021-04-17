@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import SignUpModal from "./SignUpModal";
 Modal.setAppElement("#root");
 
-function LogSigModal() {
+function LogSigModal(props) {
   const customStyles = {
     content: {
       top: "50%",
@@ -16,14 +16,19 @@ function LogSigModal() {
   };
   const [isModalOpen, setIsOpen] = React.useState(false);
 
-  function toggleModal(e) {
+  const toggleModal = (e) => {
     e.preventDefault();
     setIsOpen(!isModalOpen);
-  }
+    // props.isOpen(false);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsOpen(!!isModalOpen);
+  };
 
   return (
     <div>
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
@@ -61,13 +66,13 @@ function LogSigModal() {
         </div> */}
         <div>
           Not registered yet?
-          <button className="btn btn-link" onClick={(e) => toggleModal(e)}>
+          <button className="btn btn-link" onClick={toggleModal}>
             click here
           </button>
         </div>
       </form>
       <Modal style={customStyles} isOpen={isModalOpen}>
-        <SignUpModal toggleModal={toggleModal} />
+        <SignUpModal toggleModal={toggleModal} closeFirstModal={props.isOpen} />
       </Modal>
     </div>
   );

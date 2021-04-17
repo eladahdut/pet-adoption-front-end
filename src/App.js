@@ -1,12 +1,20 @@
 import "./App.css";
-import HomePageOut from "./components/homePage(out)/HomePageOut";
+import HomePageOut from "./components/homepage/HomePage";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <br />
-      <HomePageOut />
-    </div>
+    <Router>
+      <div>
+        <br />
+        <HomePageOut />
+      </div>
+    </Router>
   );
 }
 

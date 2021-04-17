@@ -16,7 +16,8 @@ function LogSigBtn() {
   };
   const [isModalOpen, setIsOpen] = React.useState(false);
 
-  function toggleModal() {
+  function toggleModal(e) {
+    e.preventDefault();
     setIsOpen(!isModalOpen);
   }
 
@@ -35,7 +36,7 @@ function LogSigBtn() {
         isOpen={isModalOpen}
         style={customStyles}
         toggleModal={toggleModal}>
-        <LoginModal />
+        <LoginModal isOpen={setIsOpen} />
         <button onClick={toggleModal} className="btn btn-outline-success">
           Close
         </button>
