@@ -1,23 +1,17 @@
-import React, { useState } from "react";
-import MyPets from "../myPets/MyPets";
-import Header from "./Header";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-function HomePageOut() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [userName, setUserName] = useState("Elad Ahdut");
+function HomePage(props) {
+  useEffect(() => {}, [props.isLoggedIn, props.userName]);
 
   return (
     <Router>
       <div className="text-center">
-        <div>
-          <Header isLoggedIn={isLoggedIn} userName={userName} />
-        </div>
         <br />
         <br />
         <br />
         <br />
-        {!isLoggedIn ? (
+        {!props.isLoggedIn ? (
           <>
             <div className="container col-6 bg-light rounded p-3">
               Petfinder is only a directory of homeless pets and pet adoption
@@ -40,7 +34,7 @@ function HomePageOut() {
           </>
         ) : (
           <>
-            <h2 className="display-4">welcome back {`${userName}`}</h2>
+            <h2 className="display-4">welcome back {`${props.userName}`}</h2>
             <div
               className="btn-group-vertical"
               role="group"
@@ -66,7 +60,7 @@ function HomePageOut() {
   );
 }
 
-export default HomePageOut;
+export default HomePage;
 /*  <div>Home Page logged in</div>
           <br />
           <div>this will be a link to the search page</div>

@@ -1,5 +1,5 @@
 import React from "react";
-import LogSigBtn from "./LoginBtn";
+import LogSigBtn from "../homepage/LoginBtn";
 
 function Header(props) {
   return (
