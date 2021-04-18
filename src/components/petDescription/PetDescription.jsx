@@ -29,7 +29,11 @@ function PetDescription(props) {
         </div>
       </div>
       <div className="col-4 d-block">
-        <div className="btn-group-vertical" role="group">
+        <div
+          style={{ width: "55%" }}
+          className="btn-group-vertical"
+          role="group"
+        >
           <button type="button" className="btn btn-primary m-1 ms-3">
             return pet (only visible for owner)
           </button>

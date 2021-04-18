@@ -1,20 +1,15 @@
 import { useState } from "react";
 import "./App.css";
 import HomePage from "./components/homepage/HomePage";
-import Header from "./components/header/Header"
-import MyPets from "./components/myPets/MyPets"
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import Header from "./components/header/Header";
+import MyPets from "./components/myPets/MyPets";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PetDescription from "./components/petDescription/PetDescription";
+import Search from "./components/serach/Search";
 
 function App() {
-
-  const [ isLoggedIn, setIsLoggedIn ] = useState(true);
-  const [ userName, setUserName ] = useState("Elad Ahdut");
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [userName, setUserName] = useState("Elad Ahdut");
 
   return (
     <Router>
@@ -23,7 +18,8 @@ function App() {
         <br />
         {/* <HomePage isLoggedIn={isLoggedIn} userName={userName} /> */}
         {/* <MyPets /> */}
-        <PetDescription />
+        <Search />
+        {/* <PetDescription /> */}
       </div>
     </Router>
   );
