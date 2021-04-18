@@ -6,6 +6,7 @@ import MyPets from "./components/myPets/MyPets";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PetDescription from "./components/petDescription/PetDescription";
 import Search from "./components/serach/Search";
+import AddPet from "./components/adminPages/AddPet";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -18,8 +19,9 @@ function App() {
         <br />
         {/* <HomePage isLoggedIn={isLoggedIn} userName={userName} /> */}
         {/* <MyPets /> */}
-        <Search />
+        {/* <Search /> */}
         {/* <PetDescription /> */}
+        <AddPet />
       </div>
     </Router>
   );
