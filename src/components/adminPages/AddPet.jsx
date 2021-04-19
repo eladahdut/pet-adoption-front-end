@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +70,7 @@ function AddPet() {
             placeholder="Breed"
             inputProps={{ "aria-label": "description" }}
           />
+          <Button variant="contained">Add Pet</Button>
         </div>
       </form>
     </div>

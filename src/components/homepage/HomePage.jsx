@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function HomePage(props) {
-  useEffect(() => {}, [props.isLoggedIn, props.userName]);
+  // useEffect(() => {}, [props.isLoggedIn, props.userName]);
 
   return (
     <Router>
@@ -38,7 +38,8 @@ function HomePage(props) {
             <div
               className="btn-group-vertical"
               role="group"
-              aria-label="Basic example">
+              aria-label="Basic example"
+            >
               <Link>
                 <button type="button" className="btn btn-primary">
                   Search a pet
@@ -48,7 +49,8 @@ function HomePage(props) {
                 <button
                   style={{ width: "139%" }}
                   type="button"
-                  className="btn btn-warning">
+                  className="btn btn-warning"
+                >
                   My Pets
                 </button>
               </Link>
@@ -61,8 +63,3 @@ function HomePage(props) {
 }
 
 export default HomePage;
-/*  <div>Home Page logged in</div>
-          <br />
-          <div>this will be a link to the search page</div>
-          <br />
-          <div>this will be a link to → My Pets Page</div> */
