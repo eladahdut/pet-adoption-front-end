@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import { UIStore } from "../stateStore/StateStore";
 function HomePage(props) {
   // useEffect(() => {}, [props.isLoggedIn, props.userName]);
-
+  const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
   return (
     <div className="text-center">
       <br />
       <br />
       <br />
       <br />
-      {!props.isLoggedIn ? (
+      {!isLoggedIn ? (
         <>
           <div className="container col-6 bg-light rounded p-3">
             Petfinder is only a directory of homeless pets and pet adoption
@@ -37,7 +37,8 @@ function HomePage(props) {
           <div
             className="btn-group-vertical"
             role="group"
-            aria-label="Basic example">
+            aria-label="Basic example"
+          >
             <Link>
               <button type="button" className="btn btn-primary">
                 Search a pet
@@ -47,7 +48,8 @@ function HomePage(props) {
               <button
                 style={{ width: "139%" }}
                 type="button"
-                className="btn btn-warning">
+                className="btn btn-warning"
+              >
                 My Pets
               </button>
             </Link>

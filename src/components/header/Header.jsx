@@ -1,13 +1,23 @@
 import React from "react";
 import LogSigBtn from "../homepage/LoginBtn";
 import { Link } from "react-router-dom";
-function Header(props) {
+import { UIStore } from "../stateStore/StateStore";
+
+function Header() {
+  const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
+  const userLogout = () => {
+    UIStore.update((s) => {
+      s.isLoggedIn = !isLoggedIn;
+    });
+  };
   return (
     <header className="container-fluid bg-transparent">
-      {props.isLoggedIn ? (
+      {isLoggedIn ? (
         <div className="d-flex justify-content-evenly">
           <div className="row">
-            <button className="btn btn-link text-danger">Logout</button>
+            <button onClick={userLogout} className="btn btn-link text-danger">
+              Logout
+            </button>
             <button className="btn btn-link text-info">Settings</button>
           </div>
 

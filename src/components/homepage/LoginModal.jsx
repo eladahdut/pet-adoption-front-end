@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import SignUpModal from "./SignUpModal";
+import { UIStore } from "../stateStore/StateStore";
 Modal.setAppElement("#root");
 
 function LogSigModal(props) {
@@ -15,6 +16,7 @@ function LogSigModal(props) {
     },
   };
   const [isModalOpen, setIsOpen] = React.useState(false);
+  const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
 
   const toggleModal = (e) => {
     e.preventDefault();
@@ -23,7 +25,11 @@ function LogSigModal(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    UIStore.update((s) => {
+      s.isLoggedIn = !isLoggedIn;
+    });
     setIsOpen(!!isModalOpen);
+    console.log(isLoggedIn);
   };
 
   return (
