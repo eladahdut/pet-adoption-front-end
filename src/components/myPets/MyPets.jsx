@@ -62,9 +62,10 @@ function MyPets() {
         </h3>
       ) : (
         <div className="container d-flex flex-wrap justify-content-between">
-          {usersPets.map((pet) => {
+          {usersPets.map((pet, index) => {
             return (
               <PetCard
+                key={index}
                 petImage={pet.img}
                 petName={pet.name}
                 petStatus={pet.status}

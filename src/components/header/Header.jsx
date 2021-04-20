@@ -18,7 +18,9 @@ function Header() {
             <button onClick={userLogout} className="btn btn-link text-danger">
               Logout
             </button>
-            <button className="btn btn-link text-info">Settings</button>
+            <Link className="btn btn-link text-info" to="user:id/settings">
+              Settings
+            </Link>
           </div>
 
           <h1 className="text-secondary display-4">Pet Adoption Agency</h1>
@@ -42,12 +44,12 @@ function Header() {
           </h1>
           <div className="d-flex flex-column justify-content-center">
             <img
-              style={{ width: "25%", marginLeft: "15%", marginTop: "5%" }}
+              style={{ width: "25%", marginLeft: "38%", marginTop: "5%" }}
               src="images/paw-solid.svg"
               alt="app-logo"
             />
-            <Link to="/">
-              <button className="text-dark btn btn-link">Home</button>
+            <Link className="text-dark btn btn-link" to="/">
+              Home
             </Link>
           </div>
         </div>
