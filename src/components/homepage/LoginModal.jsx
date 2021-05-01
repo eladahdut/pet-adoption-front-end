@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import SignUpModal from "./SignUpModal";
 import { UIStore } from "../stateStore/StateStore";
+import axios from "axios";
 Modal.setAppElement("#root");
 
 function LogSigModal(props) {
+  useEffect(() => {
+    axios({
+      method: "post",
+      url: "http://localhost:3000/users/login",
+      data: {
+        email: email,
+        password: password,
+      },
+    });
+  }, []);
+
   const customStyles = {
     content: {
       top: "50%",
@@ -15,13 +27,14 @@ function LogSigModal(props) {
       transform: "translate(-50%, -50%)",
     },
   };
-  const [isModalOpen, setIsOpen] = React.useState(false);
+  const [isModalOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
 
   const toggleModal = (e) => {
     e.preventDefault();
     setIsOpen(!isModalOpen);
-    // props.isOpen(false);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,34 +42,32 @@ function LogSigModal(props) {
       s.isLoggedIn = !isLoggedIn;
     });
     setIsOpen(!!isModalOpen);
-    console.log(isLoggedIn);
+  };
+  const handleLogin = (value) => {
+    setEmail(value);
+    setPassword(value);
   };
 
   return (
     <div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
-          </label>
+          <label className="form-label">Email address</label>
           <input
             type="email"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            onChange={(e) => handleLogin(e.target.value)}
           />
-          <div id="emailHelp" className="form-text">
+          <div className="form-text">
             We'll never share your email with anyone else.
           </div>
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label>
+          <label className="form-label">Password</label>
           <input
-            type="password"
+            type="text"
             className="form-control"
-            id="exampleInputPassword1"
+            onChange={(e) => handleLogin(e.target.value)}
           />
         </div>
         <div className="d-flex justify-content-between">
@@ -64,16 +75,10 @@ function LogSigModal(props) {
             Submit
           </button>
         </div>
-        {/* <div>
-          Forgot your password?
-          <button className="btn btn-link" onClick={toggleModal}>
-            click here
-          </button>
-        </div> */}
         <div>
           Not registered yet?
-          <button className="btn btn-link" onClick={toggleModal}>
-            click here
+          <button className="btn btn-link mb-2" onClick={toggleModal}>
+            Sign up here
           </button>
         </div>
       </form>
