@@ -9,12 +9,11 @@ import { UIStore } from "./components/stateStore/StateStore";
 
 function App() {
   const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("Elad Ahdut");
 
   return (
     <Router>
-      <Header /*isLoggedIn={isLoggedIn}*/ />
+      <Header />
       <Switch>
         <Route path="/search" component={Search} />
         <Route path="user:id/settings" component={ProfileSettings} />

@@ -1,22 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import SignUpModal from "./SignUpModal";
+import { login } from "../../lib/api";
 import { UIStore } from "../stateStore/StateStore";
-import axios from "axios";
 Modal.setAppElement("#root");
 
 function LogSigModal(props) {
-  useEffect(() => {
-    axios({
-      method: "post",
-      url: "http://localhost:3000/users/login",
-      data: {
-        email: email,
-        password: password,
-      },
-    });
-  }, []);
-
   const customStyles = {
     content: {
       top: "50%",
@@ -36,16 +25,21 @@ function LogSigModal(props) {
     e.preventDefault();
     setIsOpen(!isModalOpen);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    UIStore.update((s) => {
-      s.isLoggedIn = !isLoggedIn;
-    });
-    setIsOpen(!!isModalOpen);
-  };
-  const handleLogin = (value) => {
-    setEmail(value);
-    setPassword(value);
+    if (email && password) {
+      try {
+        const data = await login(email, password);
+        console.log(data);
+        UIStore.update((s) => {
+          s.isLoggedIn = !isLoggedIn;
+        });
+        setIsOpen(!!isModalOpen);
+      } catch (error) {
+        console.log(error);
+        // alert({ Message: error });
+      }
+    }
   };
 
   return (
@@ -56,7 +50,8 @@ function LogSigModal(props) {
           <input
             type="email"
             className="form-control"
-            onChange={(e) => handleLogin(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <div className="form-text">
             We'll never share your email with anyone else.
@@ -67,7 +62,8 @@ function LogSigModal(props) {
           <input
             type="text"
             className="form-control"
-            onChange={(e) => handleLogin(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="d-flex justify-content-between">

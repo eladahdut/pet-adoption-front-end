@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { signup } from "../../lib/api";
 
 function SignUpModal(props) {
   const [email, setEmail] = useState("");
@@ -9,21 +10,28 @@ function SignUpModal(props) {
   const [phone, setPhone] = useState("");
   const [validPass, setValidPass] = useState(true);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (password !== repeatPassword) {
-      setValidPass(false);
-    } else {
-      setValidPass(true);
-      props.toggleModal(e);
-      props.closeFirstModal(false);
+    if (email && password && repeatPassword && firstName && lastName && phone) {
+      try {
+        const data = await signup(
+          firstName,
+          lastName,
+          phone,
+          email,
+          password,
+          repeatPassword
+        );
+      } catch (error) {
+        console.log(error);
+        alert({ Message: error });
+      }
     }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
@@ -66,7 +74,8 @@ function SignUpModal(props) {
           {!validPass ? (
             <div
               id="validationServerUsernameFeedback"
-              className="invalid-feedback">
+              className="invalid-feedback"
+            >
               Passwords do not match.
             </div>
           ) : (
@@ -119,6 +128,7 @@ function SignUpModal(props) {
           </button>
         </div>
       </form>
+      <hr />
       <button onClick={props.toggleModal} className="btn btn-outline-warning">
         Close
       </button>
