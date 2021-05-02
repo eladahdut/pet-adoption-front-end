@@ -2,13 +2,13 @@ import axios from "axios";
 
 const baseUrl = "http://localhost:3001";
 
-// const generate getAuthConfig = (token) => {
-//     return {
-//         headers: {
-//             Authorization: token
-//         }
-//     }
-// }
+const getAuthConfig = (token) => {
+  return {
+    headers: {
+      Authorization: token
+    }
+  }
+}
 
 export async function signup(
   firstName,
