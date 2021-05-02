@@ -39,12 +39,12 @@ function HomePage(props) {
             role="group"
             aria-label="Basic example"
           >
-            <Link>
+            <Link to="/search">
               <button type="button" className="btn btn-primary">
                 Search a pet
               </button>
             </Link>
-            <Link>
+            <Link to="/pet/user/:id">
               <button
                 style={{ width: "139%" }}
                 type="button"

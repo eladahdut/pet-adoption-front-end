@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LogSigBtn from "../homepage/LoginBtn";
 import { Link } from "react-router-dom";
 import { UIStore } from "../stateStore/StateStore";
+import axios from "axios";
 
 function Header() {
+  // useEffect(() => {
+  //   const userName = axios.get();
+  // }, [input]);
   const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
   const userLogout = () => {
     UIStore.update((s) => {
