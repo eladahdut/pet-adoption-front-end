@@ -1,14 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../../context/auth";
+import { getUserById } from "../../lib/api";
 
 function ProfileSettings() {
+  const auth = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [bio, setBio] = useState("");
+  const userId = auth.userId;
+
+  useEffect(() => {
+    const userId = auth.userId;
+
+    async function getUser() {
+      const data = await getUserById(auth.userId, auth.token);
+      console.log(data);
+    }
+    getUser();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // const data = await login(email, password);
+      // auth.saveToken(data.userToken);
+      // auth.saveUserId(data.userId);
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  };
+
   return (
     <div className="container bg-light rounded w-50">
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
           <label htmlFor="changeEmail" className="form-label">
             Change email address
           </label>
           <input
+            required
             type="email"
             className="form-control"
             aria-describedby="changeEmail"

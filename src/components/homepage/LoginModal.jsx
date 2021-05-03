@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import SignUpModal from "./SignUpModal";
 import { login } from "../../lib/api";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../../context/auth";
 import { UIStore } from "../stateStore/StateStore";
 Modal.setAppElement("#root");
 
 function LogSigModal(props) {
+  const history = useHistory();
+  const auth = useAuth();
+
   const customStyles = {
     content: {
       top: "50%",
@@ -19,7 +24,7 @@ function LogSigModal(props) {
   const [isModalOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
+  // const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
 
   const toggleModal = (e) => {
     e.preventDefault();
@@ -30,14 +35,12 @@ function LogSigModal(props) {
     if (email && password) {
       try {
         const data = await login(email, password);
-        console.log(data);
-        UIStore.update((s) => {
-          s.isLoggedIn = !isLoggedIn;
-        });
+        auth.saveToken(data.userToken);
+        auth.saveUserId(data.userId);
         setIsOpen(!!isModalOpen);
       } catch (error) {
         console.log(error);
-        // alert({ Message: error });
+        alert(error);
       }
     }
   };

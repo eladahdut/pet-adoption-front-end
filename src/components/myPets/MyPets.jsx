@@ -2,28 +2,7 @@ import React, { useState } from "react";
 import PetCard from "../petCard/PetCard";
 
 function MyPets() {
-  const [usersPets, setUsersPets] = useState([
-    {
-      img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-      name: "Bishik",
-      status: "Adopted",
-    },
-    {
-      img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-      name: "Aizik",
-      status: "Conducted",
-    },
-    {
-      img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-      name: "Hilik",
-      status: "Aborted",
-    },
-    {
-      img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-      name: "Hilik",
-      status: "Aborted",
-    },
-  ]);
+  const [usersPets, setUsersPets] = useState([]);
 
   return (
     <div className="text-center">
@@ -79,3 +58,24 @@ function MyPets() {
 }
 
 export default MyPets;
+
+// {
+//   img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
+//   name: "Bishik",
+//   status: "Adopted",
+// },
+// {
+//   img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
+//   name: "Aizik",
+//   status: "Conducted",
+// },
+// {
+//   img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
+//   name: "Hilik",
+//   status: "Aborted",
+// },
+// {
+//   img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
+//   name: "Hilik",
+//   status: "Aborted",
+// },

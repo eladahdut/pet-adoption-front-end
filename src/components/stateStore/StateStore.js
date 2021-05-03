@@ -1,9 +1,14 @@
-import { Store } from "pullstate";
-import localforage from "localforage";
+// import { Store } from "pullstate";
+// import localforage from "localforage";
 
-export const UIStore = new Store({
-  isLoggedIn: false,
-  token: "",
-  saveToken: localforage.setItem('auth-token', token),
-  removeToken: localforage.removeItem('auth-token'),
-});
+// export const UIStore = new Store({
+//   isLoggedIn: false,
+//   token: "",
+//   saveToken: () => localforage.set
+//   saveToken: () =>
+//     localforage.setItem(
+//       "auth-token",
+//       UIStore.useState((s) => s.token)
+//     ),
+//   removeToken: () => localforage.removeItem("auth-token"),
+// });

@@ -1,16 +1,20 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { UIStore } from "../stateStore/StateStore";
+import { useAuth } from "../../context/auth";
+
+// import { UIStore } from "../stateStore/StateStore";
 function HomePage(props) {
-  // useEffect(() => {}, [props.isLoggedIn, props.userName]);
-  const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
+  const auth = useAuth();
+  useEffect(() => {}, [auth.token]);
+  // const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
+
   return (
     <div className="text-center">
       <br />
       <br />
       <br />
       <br />
-      {!isLoggedIn ? (
+      {!auth.token ? (
         <>
           <div className="container col-6 bg-light rounded p-3">
             Petfinder is only a directory of homeless pets and pet adoption
@@ -33,7 +37,7 @@ function HomePage(props) {
         </>
       ) : (
         <>
-          <h2 className="display-4">welcome back {`${props.userName}`}</h2>
+          <h2 className="display-4">welcome back {}</h2>
           <div
             className="btn-group-vertical"
             role="group"

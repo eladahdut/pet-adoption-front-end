@@ -1,28 +1,37 @@
 import React, { useEffect } from "react";
 import LogSigBtn from "../homepage/LoginBtn";
 import { Link } from "react-router-dom";
-import { UIStore } from "../stateStore/StateStore";
-import axios from "axios";
+import { useAuth } from "../../context/auth";
+// import { UIStore } from "../stateStore/StateStore";
+// import axios from "axios";
 
 function Header() {
+  const auth = useAuth();
+
   // useEffect(() => {
   //   const userName = axios.get();
   // }, [input]);
-  const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
-  const userLogout = () => {
-    UIStore.update((s) => {
-      s.isLoggedIn = !isLoggedIn;
-    });
-  };
+  // const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
+  // const userLogout = () => {
+  //   UIStore.update((s) => {
+  //     s.isLoggedIn = !isLoggedIn;
+  //   });
+  // };
   return (
     <header className="container-fluid bg-transparent">
-      {isLoggedIn ? (
+      {auth.token ? (
         <div className="d-flex justify-content-evenly">
           <div className="row">
-            <button onClick={userLogout} className="btn btn-link text-danger">
+            <button
+              onClick={auth.removeToken}
+              className="btn btn-link text-danger"
+            >
               Logout
             </button>
-            <Link className="btn btn-link text-info" to="user:id/settings">
+            <Link
+              className="btn btn-link text-info"
+              to={"settings/" + auth.userId}
+            >
               Settings
             </Link>
           </div>
