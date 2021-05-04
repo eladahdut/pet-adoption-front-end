@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
-import { getUserById } from "../../lib/api";
+import { getUserById, updateUserInfo } from "../../lib/api";
 
 function ProfileSettings() {
   const auth = useAuth();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
   const userId = auth.userId;
 
@@ -16,8 +16,11 @@ function ProfileSettings() {
     const userId = auth.userId;
 
     async function getUser() {
-      const data = await getUserById(auth.userId, auth.token);
-      console.log(data);
+      const data = await getUserById(userId, auth.token);
+      setEmail(data.email);
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setPhone(data.phone);
     }
     getUser();
   }, []);
@@ -26,7 +29,17 @@ function ProfileSettings() {
     e.preventDefault();
 
     try {
-      // const data = await login(email, password);
+      const data = await updateUserInfo(
+        firstName,
+        lastName,
+        phone,
+        email,
+        password,
+        userId
+      );
+      if (data) {
+        alert("User updated succefuly");
+      }
       // auth.saveToken(data.userToken);
       // auth.saveUserId(data.userId);
     } catch (error) {
@@ -43,7 +56,8 @@ function ProfileSettings() {
             Change email address
           </label>
           <input
-            required
+            onChange={(e) => setEmail(e.target.value)}
+            defaultValue={email}
             type="email"
             className="form-control"
             aria-describedby="changeEmail"
@@ -53,28 +67,51 @@ function ProfileSettings() {
           <label htmlFor="changePassword" className="form-label">
             Change password
           </label>
-          <input type="password" className="form-control" />
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            className="form-control"
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="changeFirstName" className="form-label">
             First name
           </label>
-          <input type="text" className="form-control" />
+          <input
+            onChange={(e) => setFirstName(e.target.value)}
+            defaultValue={firstName}
+            type="text"
+            className="form-control"
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="changeLastName" className="form-label">
             Change last name
           </label>
-          <input type="text" className="form-control" />
+          <input
+            onChange={(e) => setLastName(e.target.value)}
+            defaultValue={lastName}
+            type="text"
+            className="form-control"
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="changePhone" className="form-label">
             Change phone number
           </label>
-          <input type="number" className="form-control" />
+          <input
+            onChange={(e) => setPhone(e.target.value)}
+            defaultValue={phone}
+            type="number"
+            className="form-control"
+          />
         </div>
         <div className="form-floating">
-          <textarea className="form-control" placeholder="..."></textarea>
+          <textarea
+            onChange={(e) => setBio(e.target.value)}
+            className="form-control"
+            placeholder="..."
+          ></textarea>
           <label htmlFor="floatingTextarea">Add short bio</label>
         </div>
         <br />

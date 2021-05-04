@@ -23,14 +23,29 @@ export async function login(email, password) {
   return response.data;
 }
 
-export async function createProduct(name, price, category, token) {
-  const response = await axios.post(
-    BaseUrl + "/products",
-    { name, price, category },
-    getAuthConfig(token)
+export async function updateUserInfo(
+  firstName,
+  lastName,
+  phone,
+  email,
+  password,
+  id
+) {
+  const response = await axios.put(
+    BaseUrl + "users/user/" + id,
+    { firstName, lastName, phone, email, password }
+    // getAuthConfig(token)
   );
   return response.data;
 }
+// export async function createProduct(name, price, category, token) {
+//   const response = await axios.post(
+//     BaseUrl + "/products",
+//     { name, price, category },
+//     getAuthConfig(token)
+//   );
+//   return response.data;
+// }
 
 export async function getUserById(id, token) {
   const response = await axios.get(
