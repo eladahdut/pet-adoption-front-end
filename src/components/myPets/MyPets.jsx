@@ -46,6 +46,7 @@ function MyPets() {
               <PetCard
                 key={index}
                 petImage={pet.img}
+                petId={pet.id}
                 petName={pet.name}
                 petStatus={pet.status}
               />

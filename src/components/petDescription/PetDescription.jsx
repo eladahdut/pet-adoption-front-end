@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getPetsById } from "../../lib/api";
 
 function PetDescription(props) {
+  const [petData, setpetData] = useState({});
+  const petId = props.match.params.petId;
+
+  useEffect(async () => {
+    const petData = await getPetsById(petId);
+    setpetData(petData);
+  }, [petData]);
+
   return (
     <div className="container d-flex p-3">
       <div className="col-10 bg-light rounded">
@@ -11,20 +20,42 @@ function PetDescription(props) {
         />
         <div className="d-flex justify-content-center mb-4">
           <div className="text-start">
-            <div>Type (dog, cat)</div>
-            <div>Name</div>
-            <div>Adoption Status</div>
-            <div>Picture</div>
-            <div>Height</div>
-            <div>Weight</div>
+            <div>
+              Type: <span>{petData.type}</span>
+            </div>
+            <div>
+              Name: <span>{petData.name}</span>
+            </div>
+            <div>
+              Adoption Status: <span>{petData.adoptionStatus}</span>
+            </div>
+            <div>
+              Picture: <span>{petData.picture}</span>
+            </div>
+            <div>
+              Height: <span>{petData.height} cm</span>
+            </div>
+            <div>
+              Weight: <span>{petData.weight} Kg</span>
+            </div>
           </div>
           <div className="m-5"></div>
           <div className="text-end">
-            <div>Color</div>
-            <div>Bio</div>
-            <div>Hypoallergenic (yes/no)</div>
-            <div>dietary restrictions</div>
-            <div>breed of animal (Poodle, Siamese)</div>
+            <div>
+              Color: <span>{petData.color}</span>
+            </div>
+            <div>
+              Bio: <span>{petData.bio}</span>
+            </div>
+            <div>
+              Hypoallergenic: <span>{petData.hypoallerganic}</span>
+            </div>
+            <div>
+              dietary restrictions: <span>{petData.dietryRestrictions}</span>
+            </div>
+            <div>
+              breed of animal: <span>{petData.breed}</span>
+            </div>
           </div>
         </div>
       </div>

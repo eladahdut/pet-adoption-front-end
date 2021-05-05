@@ -10,6 +10,7 @@ import MyPets from "./components/myPets/MyPets";
 import Search from "./components/search/Search";
 import ProfileSettings from "./components/profileSettings/ProfileSettings";
 import AuthProvider, { useAuth } from "./context/auth";
+import PetDescription from "./components/petDescription/PetDescription";
 
 function PrivateRoute({ children, ...rest }) {
   let auth = useAuth();
@@ -66,6 +67,11 @@ const AppRouter = () => {
           exact
           path="/settings/:userId"
           render={(routeProps) => <ProfileSettings {...routeProps} />}
+        />
+        <Route
+          exact
+          path="/pet/:petId"
+          render={(routeProps) => <PetDescription {...routeProps} />}
         />
         <Route
           exact

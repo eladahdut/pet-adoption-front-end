@@ -47,8 +47,13 @@ function Search() {
 
   const handleChange = async (e) => {
     e.preventDefault();
-    const data = await getPetsByCriteria(type);
-    setSearchResults(data);
+    if (!type) {
+      const data = await getPets();
+      setSearchResults(data);
+    } else {
+      const data = await getPetsByCriteria(type);
+      setSearchResults(data);
+    }
   };
 
   return (
@@ -63,6 +68,7 @@ function Search() {
             id="demo-simple-select"
             onChange={(e) => setType(e.target.value)}
           >
+            <MenuItem value="">Any Type</MenuItem>
             <MenuItem value="Dog">Dog</MenuItem>
             <MenuItem value="Cat">Cat</MenuItem>
           </Select>
@@ -89,6 +95,7 @@ function Search() {
             return (
               <PetCard
                 key={pet._id}
+                petId={pet._id}
                 petImage={pet.img}
                 petName={pet.name}
                 petStatus={pet.adoptionStatus}
@@ -106,20 +113,11 @@ const AdvancedForm = () => {
   const classes = useStyles();
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <Input placeholder="type" inputProps={{ "aria-label": "description" }} />
       <Input
-        placeholder="status"
+        style={{ width: "170%" }}
+        placeholder="Search by type/status/height/weight/name"
         inputProps={{ "aria-label": "description" }}
       />
-      <Input
-        placeholder="height"
-        inputProps={{ "aria-label": "description" }}
-      />
-      <Input
-        placeholder="weight"
-        inputProps={{ "aria-label": "description" }}
-      />
-      <Input placeholder="name" inputProps={{ "aria-label": "description" }} />
     </form>
   );
 };
