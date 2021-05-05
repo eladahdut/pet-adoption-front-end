@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import PetCard from "../petCard/PetCard";
 import Input from "@material-ui/core/Input";
+import { getPets, getPetsByCriteria } from "../../lib/api";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 190,
   },
   centralize: {
     display: "flex",
@@ -30,67 +32,44 @@ const useStyles = makeStyles((theme) => ({
 
 function Search() {
   const classes = useStyles();
-  const [age, setAge] = useState("");
-  const [open, setOpen] = useState(false);
+  const [type, setType] = useState("");
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const onClick = () => setAdvancedSearch(!advancedSearch);
-  const [searchResults, setSearchResults] = useState([
-    {
-      img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-      name: "Bishik",
-      status: "Adopted",
-    },
-    {
-      img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-      name: "Aizik",
-      status: "Conducted",
-    },
-    {
-      img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-      name: "Hilik",
-      status: "Aborted",
-    },
-    {
-      img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-      name: "Hilik",
-      status: "Aborted",
-    },
-  ]);
+  const [searchResults, setSearchResults] = useState([]);
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  useEffect(() => {
+    async function petsStore() {
+      const data = await getPets();
+      setSearchResults(data);
+    }
+    petsStore();
+  }, []);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
+  const handleChange = async (e) => {
+    e.preventDefault();
+    const data = await getPetsByCriteria(type);
+    setSearchResults(data);
   };
 
   return (
     <div className="col">
       <div className={classes.centralize}>
-        <Button className={classes.button} onClick={handleOpen}>
-          friend type
-        </Button>
         <FormControl className={classes.formControl}>
-          <InputLabel id="demo-controlled-open-select-label">type</InputLabel>
+          <InputLabel id="demo-simple-select-label">
+            Search By Budy Type
+          </InputLabel>
           <Select
-            labelId="demo-controlled-open-select-label"
-            id="demo-controlled-open-select"
-            open={open}
-            onClose={handleClose}
-            onOpen={handleOpen}
-            value={age}
-            onChange={handleChange}
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            onChange={(e) => setType(e.target.value)}
           >
-            <MenuItem value={"dog"}>dog</MenuItem>
-            <MenuItem value={"cat"}>cat</MenuItem>
+            <MenuItem value="Dog">Dog</MenuItem>
+            <MenuItem value="Cat">Cat</MenuItem>
           </Select>
         </FormControl>
-        <Button className={classes.button}>Search</Button>
+        <Button onClick={handleChange} className={classes.button}>
+          Search
+        </Button>
         <br />
       </div>
       <div className={classes.centralize}>
@@ -105,15 +84,20 @@ function Search() {
       <br />
       <br />
       <div className="container d-flex flex-wrap justify-content-between">
-        {searchResults.map((pet) => {
-          return (
-            <PetCard
-              petImage={pet.img}
-              petName={pet.name}
-              petStatus={pet.status}
-            />
-          );
-        })}
+        {searchResults ? (
+          searchResults.map((pet) => {
+            return (
+              <PetCard
+                key={pet._id}
+                petImage={pet.img}
+                petName={pet.name}
+                petStatus={pet.adoptionStatus}
+              />
+            );
+          })
+        ) : (
+          <h2>Loading</h2>
+        )}
       </div>
     </div>
   );

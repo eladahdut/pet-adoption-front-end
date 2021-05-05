@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BaseUrl = "http://localhost:3001/";
+const baseUrl = "http://localhost:3001/";
 
 function getAuthConfig(token) {
   return {
@@ -11,12 +11,12 @@ function getAuthConfig(token) {
 }
 
 export async function signup(email, password) {
-  const response = await axios.post(BaseUrl + "/users", { email, password });
+  const response = await axios.post(baseUrl + "/users", { email, password });
   return response.data;
 }
 
 export async function login(email, password) {
-  const response = await axios.post(BaseUrl + "users/login", {
+  const response = await axios.post(baseUrl + "users/login", {
     email,
     password,
   });
@@ -32,15 +32,25 @@ export async function updateUserInfo(
   id
 ) {
   const response = await axios.put(
-    BaseUrl + "users/user/" + id,
+    baseUrl + "users/user/" + id,
     { firstName, lastName, phone, email, password }
     // getAuthConfig(token)
   );
   return response.data;
 }
+
+export async function getPets() {
+  const response = await axios.get(baseUrl + "pets");
+  return response.data;
+}
+export async function getPetsByCriteria(criteria) {
+  const response = await axios.get(baseUrl + "pets/search/" + criteria);
+  console.log("log from func", response.data);
+  return response.data;
+}
 // export async function createProduct(name, price, category, token) {
 //   const response = await axios.post(
-//     BaseUrl + "/products",
+//     baseUrl + "/products",
 //     { name, price, category },
 //     getAuthConfig(token)
 //   );
@@ -49,7 +59,7 @@ export async function updateUserInfo(
 
 export async function getUserById(id, token) {
   const response = await axios.get(
-    BaseUrl + "users/user/" + id,
+    baseUrl + "users/user/" + id,
     getAuthConfig(token)
   );
   return response.data;
@@ -57,7 +67,7 @@ export async function getUserById(id, token) {
 
 export async function getMyProducts(token) {
   const response = await axios.get(
-    BaseUrl + "/products/me",
+    baseUrl + "/products/me",
     getAuthConfig(token)
   );
   return response.data;

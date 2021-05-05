@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import Header from "./components/header/Header";
 import HomePage from "./components/homepage/HomePage";
+import MyPets from "./components/myPets/MyPets";
+import Search from "./components/search/Search";
 import ProfileSettings from "./components/profileSettings/ProfileSettings";
 import AuthProvider, { useAuth } from "./context/auth";
 
@@ -64,6 +66,16 @@ const AppRouter = () => {
           exact
           path="/settings/:userId"
           render={(routeProps) => <ProfileSettings {...routeProps} />}
+        />
+        <Route
+          exact
+          path="/pet/user/:userId"
+          render={(routeProps) => <MyPets {...routeProps} />}
+        />
+        <Route
+          exact
+          path="/search"
+          render={(routeProps) => <Search {...routeProps} />}
         />
         <Route exact path="/" component={HomePage} />
       </Switch>
