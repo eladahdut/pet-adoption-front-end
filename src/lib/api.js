@@ -66,6 +66,25 @@ export async function getPetsById(id) {
   const response = await axios.get(baseUrl + "pets/" + id);
   return response.data;
 }
+export async function likePet(petId, userId) {
+  const response = await axios.post(baseUrl + "pets/pet/" + petId + "/save", {
+    userId,
+  });
+  return response.data;
+}
+export async function unlikePet(petId, userId) {
+  const response = await axios.delete(baseUrl + "pets/pet/" + petId + "/save", {
+    userId,
+  });
+  return response.data;
+}
+export async function adoptPet(petId, userId) {
+  const response = await axios.post(baseUrl + "pets/pet/" + petId + "/adopt", {
+    petId,
+    userId,
+  });
+  return response.data;
+}
 // export async function createProduct(name, price, category, token) {
 //   const response = await axios.post(
 //     baseUrl + "/products",

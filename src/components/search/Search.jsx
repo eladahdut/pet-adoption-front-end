@@ -84,7 +84,21 @@ function Search() {
         </Button>
       </div>
       <div className={classes.centralize}>
-        {advancedSearch ? <AdvancedForm /> : null}
+        {advancedSearch ? (
+          <form
+            style={{ marginRight: "10%" }}
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+          >
+            <Input
+              onChange={(e) => setType(e.target.value)}
+              style={{ width: "170%" }}
+              placeholder="Search by type/status/height/weight/name"
+              inputProps={{ "aria-label": "description" }}
+            />
+          </form>
+        ) : null}
       </div>
       <br />
       <br />
@@ -109,17 +123,5 @@ function Search() {
     </div>
   );
 }
-const AdvancedForm = () => {
-  const classes = useStyles();
-  return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <Input
-        style={{ width: "170%" }}
-        placeholder="Search by type/status/height/weight/name"
-        inputProps={{ "aria-label": "description" }}
-      />
-    </form>
-  );
-};
 
 export default Search;

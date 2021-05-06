@@ -1,20 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { getPetsById } from "../../lib/api";
+import { getPetsById, likePet, unlikePet, adoptPet } from "../../lib/api";
+import { useAuth } from "../../context/auth";
 
 function PetDescription(props) {
-  const [petData, setpetData] = useState({});
+  const [petData, setPetData] = useState({});
+  const [isPetLiked, setIspetLiked] = useState(false);
   const petId = props.match.params.petId;
+  const auth = useAuth();
+  const userId = auth.userId;
+  const token = auth.token;
 
   useEffect(async () => {
     const petData = await getPetsById(petId);
-    setpetData(petData);
-  }, [petData]);
+    setPetData(petData);
+  }, []);
+
+  function handleLikePet() {
+    if (isPetLiked === "true") {
+      unlikePet(petId, userId, token);
+      setIspetLiked(!isPetLiked);
+    } else {
+      likePet(petId, userId, token);
+      setIspetLiked(!isPetLiked);
+    }
+  }
+  async function handleAdoption() {
+    const response = await adoptPet(petId, userId);
+    console.log(response);
+  }
 
   return (
     <div className="container d-flex p-3">
       <div className="col-10 bg-light rounded">
         <img
-          className="w-75 rounded mx-auto d-block mt-5 mb-2"
+          className="w-50 rounded mx-auto d-block mt-5 mb-2"
           src="https://cdn.the-scientist.com/assets/articleNo/67714/aImg/38606/article-sickpug-l.png"
           alt=""
         />
@@ -59,23 +78,31 @@ function PetDescription(props) {
           </div>
         </div>
       </div>
-      <div className="col-4 d-block">
+      <div className="d-block">
         <div
-          style={{ width: "55%" }}
+          style={{ width: "110%" }}
           className="btn-group-vertical"
           role="group"
         >
           <button type="button" className="btn btn-primary m-1 ms-3">
             return pet (only visible for owner)
           </button>
-          <button type="button" className="btn btn-primary m-1 ms-3">
+          <button
+            onClick={handleAdoption}
+            type="button"
+            className="btn btn-primary m-1 ms-3"
+          >
             adopt
           </button>
           <button type="button" className="btn btn-primary m-1 ms-3">
             foster
           </button>
-          <button type="button" className="btn btn-primary m-1 ms-3">
-            save for later/unsave
+          <button
+            onClick={handleLikePet}
+            type="button"
+            className="btn btn-primary m-1 ms-3"
+          >
+            Like
           </button>
         </div>
       </div>
