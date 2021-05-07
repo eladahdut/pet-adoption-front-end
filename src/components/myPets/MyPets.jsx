@@ -1,8 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getUserById, getUserPets } from "../../lib/api";
+import { useAuth } from "../../context/auth";
 import PetCard from "../petCard/PetCard";
 
 function MyPets() {
-  const [usersPets, setUsersPets] = useState([]);
+  const auth = useAuth();
+  // const [usersPets, setUsersPets] = useState([]);
+  const [petsToDisplay, setPetsToDisplay] = useState(null);
+  const [userPets, setUserPets] = useState(null);
+
+  useEffect(() => {
+    async function fetchUserPets() {
+      const pets = await getUserPets(auth.userId, auth.token);
+      setUserPets(pets);
+    }
+    fetchUserPets();
+  }, [petsToDisplay]);
+
+  function handleClick(e) {
+    setPetsToDisplay(e);
+  }
 
   return (
     <div className="text-center">
@@ -10,18 +27,21 @@ function MyPets() {
       <br />
       <div className="btn-group" role="group">
         <input
+          onClick={(e) => handleClick(e.target.value)}
+          value="myPets"
           type="radio"
           className="btn-check"
           name="btnradio"
           id="btnradio1"
           autoComplete="off"
-          checked
         />
         <label className="btn btn-outline-primary" htmlFor="btnradio1">
           Pets
         </label>
 
         <input
+          onClick={(e) => handleClick(e.target.value)}
+          value="likedPets"
           type="radio"
           className="btn-check"
           name="btnradio"
@@ -35,48 +55,40 @@ function MyPets() {
       <br />
       <br />
       <br />
-      {!usersPets ? (
-        <h3 className="display-5">
-          You currently do not own or foster any pets.
-        </h3>
-      ) : (
-        <div className="container d-flex flex-wrap justify-content-between">
-          {usersPets.map((pet, index) => {
+      {petsToDisplay ? (
+        petsToDisplay === "likedPets" ? (
+          userPets.likedPets.map((pet) => {
+            console.log(petsToDisplay);
             return (
               <PetCard
-                key={index}
+                key={pet._id}
+                petId={pet._id}
                 petImage={pet.img}
-                petId={pet.id}
                 petName={pet.name}
-                petStatus={pet.status}
+                petStatus={pet.adoptionStatus}
               />
             );
-          })}
-        </div>
+          })
+        ) : (
+          <h3>You currently do not like any pet</h3>
+        )
+      ) : petsToDisplay === "adoptedPets" ? (
+        userPets.adoptedPets.map((pet) => {
+          return (
+            <PetCard
+              key={pet._id}
+              petId={pet._id}
+              petImage={pet.img}
+              petName={pet.name}
+              petStatus={pet.adoptionStatus}
+            />
+          );
+        })
+      ) : (
+        <h3>You currently do not own any pet</h3>
       )}
     </div>
   );
 }
 
 export default MyPets;
-
-// {
-//   img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-//   name: "Bishik",
-//   status: "Adopted",
-// },
-// {
-//   img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-//   name: "Aizik",
-//   status: "Conducted",
-// },
-// {
-//   img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-//   name: "Hilik",
-//   status: "Aborted",
-// },
-// {
-//   img: "https://c.files.bbci.co.uk/1086B/production/_115619676_dog2.jpg",
-//   name: "Hilik",
-//   status: "Aborted",
-// },

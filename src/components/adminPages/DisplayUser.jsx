@@ -22,8 +22,10 @@ function DisplayUser() {
 
   return (
     <div>
-      <h2 className="display-5">User Info</h2>
-      <div className="container">
+      <br />
+      <br />
+      <h2 className="display-5 text-center">User Info</h2>
+      <div className="container text-center d-flex justify-content-center">
         <div className="card" style={{ width: "18rem" }}>
           <div className="card-body">
             <h5 className="card-title">
@@ -34,10 +36,13 @@ function DisplayUser() {
           </div>
         </div>
       </div>
-      <h2 className="display-5">User's Liked pets</h2>
-      <div>
+      <br />
+      <br />
+      <h2 className="display-5 text-center">User's Liked pets</h2>
+      <div className="d-flex justify-content-evenly">
         {userPets ? (
           userPets.likedPets.map((pet) => {
+            console.log("log from liked pets", pet);
             return (
               <PetCard
                 key={pet._id}
@@ -52,10 +57,15 @@ function DisplayUser() {
           <h4>loading</h4>
         )}
       </div>
-      <h2 className="display-5">User's fostered and adopted pets</h2>
-      <div>
+      <br />
+      <br />
+      <h2 className="display-5 text-center">
+        User's fostered and adopted pets
+      </h2>
+      <div className="d-flex justify-content-evenly">
         {userPets ? (
           userPets.ownedPets.map((pet) => {
+            console.log("log from owned pets", pet);
             return (
               <PetCard
                 key={pet._id}

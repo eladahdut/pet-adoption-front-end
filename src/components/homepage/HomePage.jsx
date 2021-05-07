@@ -6,6 +6,7 @@ import { getUserById } from "../../lib/api";
 function HomePage() {
   const auth = useAuth();
   const [userName, setUserName] = useState("");
+
   useEffect(async () => {
     const userData = await getUserById(auth.userId, auth.token);
     const { firstName, lastName } = userData;
@@ -51,7 +52,7 @@ function HomePage() {
                 Search a pet
               </button>
             </Link>
-            <Link to="/pet/user/:id">
+            <Link to={"/pet/user/" + auth.userId}>
               <button
                 style={{ width: "139%" }}
                 type="button"
@@ -60,6 +61,8 @@ function HomePage() {
               </button>
             </Link>
           </div>
+          <br />
+          <div></div>
         </>
       )}
     </div>
