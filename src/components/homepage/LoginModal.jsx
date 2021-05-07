@@ -40,6 +40,8 @@ function LogSigModal(props) {
         auth.saveAdoptedPet(data.adoptedPets);
         auth.saveFosteredPet(data.fosterdPets);
         auth.saveLikedPet(data.likedPets);
+        auth.saveUserType(data.userType);
+        auth.saveUserName(data.userName);
         history.push("/");
         setIsOpen(!!isModalOpen);
       } catch (error) {

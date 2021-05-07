@@ -7,11 +7,9 @@ function HomePage() {
   const auth = useAuth();
   const [userName, setUserName] = useState("");
 
-  useEffect(async () => {
-    const userData = await getUserById(auth.userId, auth.token);
-    const { firstName, lastName } = userData;
-    setUserName(firstName + " " + lastName);
-  }, [auth.token]);
+  useEffect(() => {
+    setUserName(auth.userName);
+  }, [auth.userName]);
 
   return (
     <div className="text-center">

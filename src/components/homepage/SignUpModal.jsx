@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { signup } from "../../lib/api";
+import { useAuth } from "../../context/auth";
+import { useHistory } from "react-router-dom";
 
 function SignUpModal(props) {
   const [email, setEmail] = useState("");
@@ -9,19 +11,33 @@ function SignUpModal(props) {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [validPass, setValidPass] = useState(true);
+  const auth = useAuth();
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (email && password && repeatPassword && firstName && lastName && phone) {
       try {
-        const data = await signup(
+        signup(
           firstName,
           lastName,
           phone,
           email,
           password,
           repeatPassword
-        );
+        ).then((data) => {
+          if (data) {
+            auth.saveToken(data.userToken).then(() => {
+              auth.saveUserId(data.userId);
+            });
+            auth.saveAdoptedPet(data.adoptedPets);
+            auth.saveFosteredPet(data.fosterdPets);
+            auth.saveLikedPet(data.likedPets);
+            auth.saveUserType(data.userType);
+            auth.saveUserName(data.userName);
+            history.push("/");
+          }
+        });
       } catch (error) {
         console.log(error);
         alert({ Message: error });
@@ -74,8 +90,7 @@ function SignUpModal(props) {
           {!validPass ? (
             <div
               id="validationServerUsernameFeedback"
-              className="invalid-feedback"
-            >
+              className="invalid-feedback">
               Passwords do not match.
             </div>
           ) : (

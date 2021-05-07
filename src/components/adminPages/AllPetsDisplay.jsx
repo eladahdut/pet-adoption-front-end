@@ -18,7 +18,7 @@ function AllPetsDisplay() {
         {allPets.map((pet) => {
           return (
             <li>
-              <Link to={`/pet/ + ${pet._id}`}>{pet.name}</Link>
+              <Link to={`/pet/${pet._id}`}>{pet.name}</Link>
             </li>
           );
         })}

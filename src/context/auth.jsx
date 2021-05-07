@@ -1,11 +1,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import localforage from "localforage";
 import { getUserByToken } from "../lib/api";
+import { useScrollTrigger } from "@material-ui/core";
 
 export const AuthContext = createContext({
   isInitiallyLoaded: false,
   token: "",
   userId: "",
+  userType: 2,
+  userName: "",
   adoptedPets: [],
   fosteredPets: [],
   likedPets: [],
@@ -15,6 +18,8 @@ export const AuthContext = createContext({
   saveAdoptedPet: (adoptedPets) => {},
   saveFosteredPet: (fosteredPets) => {},
   saveLikedPet: (likedPets) => {},
+  saveUserType: (userType) => {},
+  saveUserName: (userName) => {},
 });
 
 const tokenKey = "userToken";
@@ -31,6 +36,16 @@ const AuthProvider = (props) => {
   const [adoptedPets, setAdoptedPets] = useState([]);
   const [fosteredPets, setFosteredPets] = useState([]);
   const [likedPets, setLikedPets] = useState([]);
+  const [userType, setUserType] = useState();
+  const [userName, setUserName] = useState();
+
+  const saveUserType = (userType) => {
+    setUserType(userType);
+  };
+
+  const saveUserName = (userName) => {
+    setUserName(userName);
+  };
 
   const saveUserId = async (userId) => {
     setUserId(userId);
@@ -63,6 +78,8 @@ const AuthProvider = (props) => {
           saveAdoptedPet(data.data.adoptedPets);
           saveFosteredPet(data.data.fosterdPets);
           saveLikedPet(data.data.likedPets);
+          saveUserType(data.data.userType);
+          saveUserName(data.data.userName);
         }
       } catch (error) {
         console.log(error);
@@ -87,6 +104,8 @@ const AuthProvider = (props) => {
         userId,
         token,
         isInitiallyLoaded,
+        userType,
+        userName,
         saveToken,
         removeToken,
         saveUserId,
@@ -96,6 +115,8 @@ const AuthProvider = (props) => {
         saveAdoptedPet,
         saveFosteredPet,
         saveLikedPet,
+        saveUserType,
+        saveUserName,
       }}>
       {props.children}
     </AuthContext.Provider>

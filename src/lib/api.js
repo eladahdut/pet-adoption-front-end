@@ -9,7 +9,10 @@ function getAuthConfig(token) {
     },
   };
 }
-
+export async function addNewPet(pet, token) {
+  const response = axios.post(baseUrl + "pets/pet", pet, getAuthConfig(token))
+  return response.data;
+}
 export async function signup(
   firstName,
   lastName,
@@ -113,6 +116,18 @@ export async function getAllUsers(token) {
 export async function getUserPets(userId, token) {
   const response = await axios.get(
     baseUrl + "pets/pet/user/" + userId, getAuthConfig(token))
+  return response.data;
+}
+
+export async function uploadPic(token, file) {
+  const response = await axios.post(
+    baseUrl + "pets/picture", file, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "auth-token": token
+    }
+  }
+  )
   return response.data;
 }
 

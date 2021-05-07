@@ -23,12 +23,16 @@ function Header() {
             <button onClick={logout} className="btn btn-link text-danger">
               Logout
             </button>
-            <Link className="link text-dark" to={"settings/" + auth.userId}>
+            <Link className="link text-dark" to={"/settings/" + auth.userId}>
               Settings
             </Link>
-            <Link className="link text-dark" to={"dashboard"}>
-              Dashboard
-            </Link>
+            {auth.userType == 1 ? (
+              <Link className="link text-dark" to={"/dashboard"}>
+                Dashboard
+              </Link>
+            ) : (
+              <></>
+            )}
           </div>
 
           <h1 className="text-secondary display-4">Pet Adoption Agency</h1>

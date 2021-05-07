@@ -5,21 +5,24 @@ import PetCard from "../petCard/PetCard";
 
 function MyPets() {
   const auth = useAuth();
-  // const [usersPets, setUsersPets] = useState([]);
-  const [petsToDisplay, setPetsToDisplay] = useState(null);
-  const [userPets, setUserPets] = useState(null);
+
+  const [showLikedPets, setShowLikedPets] = useState(false);
+  const [likedPets, setLikedPets] = useState([]);
+  const [ownedPets, setOwnedPets] = useState([]);
 
   useEffect(() => {
     async function fetchUserPets() {
       const pets = await getUserPets(auth.userId, auth.token);
-      setUserPets(pets);
+      setLikedPets(pets.likedPets);
+      setOwnedPets(pets.ownedPets);
+      console.log(pets);
     }
     fetchUserPets();
-  }, [petsToDisplay]);
+  }, []);
 
-  function handleClick(e) {
-    setPetsToDisplay(e);
-  }
+  useEffect(() => {
+    console.log(showLikedPets);
+  }, [showLikedPets]);
 
   return (
     <div className="text-center">
@@ -27,20 +30,21 @@ function MyPets() {
       <br />
       <div className="btn-group" role="group">
         <input
-          onClick={(e) => handleClick(e.target.value)}
+          onClick={() => setShowLikedPets(false)}
           value="myPets"
           type="radio"
           className="btn-check"
           name="btnradio"
           id="btnradio1"
           autoComplete="off"
+          clicked={true}
         />
         <label className="btn btn-outline-primary" htmlFor="btnradio1">
           Pets
         </label>
 
         <input
-          onClick={(e) => handleClick(e.target.value)}
+          onClick={() => setShowLikedPets(true)}
           value="likedPets"
           type="radio"
           className="btn-check"
@@ -55,13 +59,12 @@ function MyPets() {
       <br />
       <br />
       <br />
-      {petsToDisplay ? (
-        petsToDisplay === "likedPets" ? (
-          userPets.likedPets.map((pet) => {
-            console.log(petsToDisplay);
+      {showLikedPets ? (
+        likedPets.length ? (
+          likedPets.map((pet, i) => {
             return (
               <PetCard
-                key={pet._id}
+                key={i}
                 petId={pet._id}
                 petImage={pet.img}
                 petName={pet.name}
@@ -70,13 +73,13 @@ function MyPets() {
             );
           })
         ) : (
-          <h3>You currently do not like any pet</h3>
+          <h3>You do not have any liked pets</h3>
         )
-      ) : petsToDisplay === "adoptedPets" ? (
-        userPets.adoptedPets.map((pet) => {
+      ) : ownedPets.length ? (
+        ownedPets.map((pet, i) => {
           return (
             <PetCard
-              key={pet._id}
+              key={i}
               petId={pet._id}
               petImage={pet.img}
               petName={pet.name}
@@ -85,7 +88,7 @@ function MyPets() {
           );
         })
       ) : (
-        <h3>You currently do not own any pet</h3>
+        <h3>You do not own any pets</h3>
       )}
     </div>
   );
