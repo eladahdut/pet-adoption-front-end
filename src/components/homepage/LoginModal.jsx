@@ -35,8 +35,12 @@ function LogSigModal(props) {
     if (email && password) {
       try {
         const data = await login(email, password);
-        auth.saveToken(data.userToken);
-        auth.saveUserId(data.userId);
+        await auth.saveToken(data.userToken);
+        await auth.saveUserId(data.userId);
+        auth.saveAdoptedPet(data.adoptedPets);
+        auth.saveFosteredPet(data.fosterdPets);
+        auth.saveLikedPet(data.likedPets);
+        history.push("/");
         setIsOpen(!!isModalOpen);
       } catch (error) {
         console.log(error);
@@ -63,7 +67,7 @@ function LogSigModal(props) {
         <div className="mb-3">
           <label className="form-label">Password</label>
           <input
-            type="text"
+            type="password"
             className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

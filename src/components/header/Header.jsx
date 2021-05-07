@@ -1,25 +1,32 @@
 import React, { useEffect } from "react";
 import LogSigBtn from "../homepage/LoginBtn";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 
 function Header() {
   const auth = useAuth();
+  const history = useHistory();
+
+  function logout() {
+    auth.removeToken();
+    auth.saveAdoptedPet([]);
+    auth.saveFosteredPet([]);
+    auth.saveLikedPet([]);
+    history.push("/");
+  }
+
   return (
     <header className="container-fluid bg-transparent">
       {auth.token ? (
         <div className="d-flex justify-content-evenly">
           <div className="row">
-            <button
-              onClick={auth.removeToken}
-              className="btn btn-link text-danger"
-            >
+            <button onClick={logout} className="btn btn-link text-danger">
               Logout
             </button>
             <Link className="link text-dark" to={"settings/" + auth.userId}>
               Settings
             </Link>
-            <Link className="link text-dark" to={"settings/" + auth.userId}>
+            <Link className="link text-dark" to={"dashboard"}>
               Dashboard
             </Link>
           </div>

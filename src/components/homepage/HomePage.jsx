@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
+import { getUserById } from "../../lib/api";
 
-// import { UIStore } from "../stateStore/StateStore";
-function HomePage(props) {
+function HomePage() {
   const auth = useAuth();
-  useEffect(() => {}, [auth.token]);
-  // const isLoggedIn = UIStore.useState((s) => s.isLoggedIn);
+  const [userName, setUserName] = useState("");
+  useEffect(async () => {
+    const userData = await getUserById(auth.userId, auth.token);
+    const { firstName, lastName } = userData;
+    setUserName(firstName + " " + lastName);
+  }, [auth.token]);
 
   return (
     <div className="text-center">
@@ -37,12 +41,11 @@ function HomePage(props) {
         </>
       ) : (
         <>
-          <h2 className="display-4">welcome back {}</h2>
+          <h2 className="display-4">welcome back {userName}</h2>
           <div
             className="btn-group-vertical"
             role="group"
-            aria-label="Basic example"
-          >
+            aria-label="Basic example">
             <Link to="/search">
               <button type="button" className="btn btn-primary">
                 Search a pet
@@ -52,8 +55,7 @@ function HomePage(props) {
               <button
                 style={{ width: "139%" }}
                 type="button"
-                className="btn btn-warning"
-              >
+                className="btn btn-warning">
                 My Pets
               </button>
             </Link>

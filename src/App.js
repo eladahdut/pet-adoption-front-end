@@ -2,7 +2,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+
 } from "react-router-dom";
 import Header from "./components/header/Header";
 import HomePage from "./components/homepage/HomePage";
@@ -11,27 +11,33 @@ import Search from "./components/search/Search";
 import ProfileSettings from "./components/profileSettings/ProfileSettings";
 import AuthProvider, { useAuth } from "./context/auth";
 import PetDescription from "./components/petDescription/PetDescription";
+import AddPet from "./components/adminPages/AddPet";
+import Dashboard from "./components/adminPages/Dashboard";
+import AllPetsDisplay from "./components/adminPages/AllPetsDisplay";
+import AllUsersDisplay from "./components/adminPages/AllUsersDisplay";
+import DisplayUser from "./components/adminPages/DisplayUser";
 
-function PrivateRoute({ children, ...rest }) {
-  let auth = useAuth();
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        auth.token ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
-}
+
+// function PrivateRoute({ children, ...rest }) {
+//   let auth = useAuth();
+//   return (
+//     <Route
+//       {...rest}
+//       render={({ location }) =>
+//         auth.token ? (
+//           children
+//         ) : (
+//           <Redirect
+//             to={{
+//               pathname: "/",
+//               state: { from: location },
+//             }}
+//           />
+//         )
+//       }
+//     />
+//   );
+// }
 
 const AppRouter = () => {
   let auth = useAuth();
@@ -75,6 +81,31 @@ const AppRouter = () => {
         />
         <Route
           exact
+          path="/dashboard"
+          render={(routeProps) => <Dashboard {...routeProps} />}
+        />
+        <Route
+          exact
+          path="/dashboard/allpets"
+          render={(routeProps) => <AllPetsDisplay {...routeProps} />}
+        />
+        <Route
+          exact
+          path="/dashboard/allusers"
+          render={(routeProps) => <AllUsersDisplay {...routeProps} />}
+        />
+        <Route
+          exact
+          path="/dashboard/user/:userId"
+          render={(routeProps) => <DisplayUser {...routeProps} />}
+        />
+        <Route
+          exact
+          path="/pet"
+          render={(routeProps) => <AddPet {...routeProps} />}
+        />
+        <Route
+          exact
           path="/pet/user/:userId"
           render={(routeProps) => <MyPets {...routeProps} />}
         />
@@ -98,27 +129,3 @@ function App() {
 }
 
 export default App;
-
-// import "./App.css";
-// import HomePage from "./components/homepage/HomePage";
-// import Header from "./components/header/Header";
-// import Search from "./components/search/Search";
-// import ProfileSettings from "./components/profileSettings/ProfileSettings";
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import MyPets from "./components/myPets/MyPets";
-
-// function App() {
-//   return (
-//     <Router>
-//       <Header />
-//       <Switch>
-//         <Route path="/search" component={Search} />
-//         <Route path="/:userId/settings" component={ProfileSettings} />
-//         <Route exact path="/pet/user/:id" component={MyPets} />
-//         <Route exact path="/" component={HomePage} />
-//       </Switch>
-//     </Router>
-//   );
-// }
-
-// export default App;

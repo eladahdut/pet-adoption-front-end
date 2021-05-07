@@ -4,7 +4,7 @@ import { useAuth } from "../../context/auth";
 
 function PetDescription(props) {
   const [petData, setPetData] = useState({});
-  const [isPetLiked, setIspetLiked] = useState(false);
+  const [likedPets, setLikedPets] = useState([]);
   const petId = props.match.params.petId;
   const auth = useAuth();
   const userId = auth.userId;
@@ -15,13 +15,18 @@ function PetDescription(props) {
     setPetData(petData);
   }, []);
 
-  function handleLikePet() {
-    if (isPetLiked === "true") {
-      unlikePet(petId, userId, token);
-      setIspetLiked(!isPetLiked);
+  useEffect(() => {
+    setLikedPets([]);
+    setLikedPets(auth.likedPets);
+  }, [auth.likedPets]);
+
+  async function handleLikePet() {
+    if (checkLikedPet(petId)) {
+      const data = await unlikePet(petId, auth.userId);
+      auth.saveLikedPet(data);
     } else {
-      likePet(petId, userId, token);
-      setIspetLiked(!isPetLiked);
+      const data = await likePet(petId, auth.userId);
+      auth.saveLikedPet(data);
     }
   }
   async function handleAdoption() {
@@ -29,12 +34,16 @@ function PetDescription(props) {
     console.log(response);
   }
 
+  function checkLikedPet(petId) {
+    return likedPets.includes(petId);
+  }
+
   return (
     <div className="container d-flex p-3">
       <div className="col-10 bg-light rounded">
         <img
           className="w-50 rounded mx-auto d-block mt-5 mb-2"
-          src="https://cdn.the-scientist.com/assets/articleNo/67714/aImg/38606/article-sickpug-l.png"
+          src={petData.picture}
           alt=""
         />
         <div className="d-flex justify-content-center mb-4">
@@ -47,9 +56,6 @@ function PetDescription(props) {
             </div>
             <div>
               Adoption Status: <span>{petData.adoptionStatus}</span>
-            </div>
-            <div>
-              Picture: <span>{petData.picture}</span>
             </div>
             <div>
               Height: <span>{petData.height} cm</span>
@@ -82,28 +88,34 @@ function PetDescription(props) {
         <div
           style={{ width: "110%" }}
           className="btn-group-vertical"
-          role="group"
-        >
+          role="group">
           <button type="button" className="btn btn-primary m-1 ms-3">
             return pet (only visible for owner)
           </button>
           <button
             onClick={handleAdoption}
             type="button"
-            className="btn btn-primary m-1 ms-3"
-          >
+            className="btn btn-primary m-1 ms-3">
             adopt
           </button>
           <button type="button" className="btn btn-primary m-1 ms-3">
             foster
           </button>
-          <button
-            onClick={handleLikePet}
-            type="button"
-            className="btn btn-primary m-1 ms-3"
-          >
-            Like
-          </button>
+          {checkLikedPet(petId) ? (
+            <button
+              onClick={handleLikePet}
+              type="button"
+              className="btn btn-primary m-1 ms-3">
+              disLike
+            </button>
+          ) : (
+            <button
+              onClick={handleLikePet}
+              type="button"
+              className="btn btn-primary m-1 ms-3">
+              Like
+            </button>
+          )}
         </div>
       </div>
     </div>
