@@ -42,10 +42,10 @@ function LogSigModal(props) {
         auth.saveLikedPet(data.likedPets);
         auth.saveUserType(data.userType);
         auth.saveUserName(data.userName);
+        auth.saveIsLoggedIn(true);
         history.push("/");
         setIsOpen(!!isModalOpen);
       } catch (error) {
-        console.log(error);
         alert(error);
       }
     }

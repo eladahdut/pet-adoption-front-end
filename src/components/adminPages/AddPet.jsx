@@ -62,7 +62,6 @@ function AddPet() {
     };
     const data = await addNewPet(pet, auth.token);
     history.push("/dashboard");
-    console.log(data);
   }
 
   return (

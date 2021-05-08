@@ -64,7 +64,6 @@ export async function getPets() {
 }
 export async function getPetsByCriteria(criteria) {
   const response = await axios.get(baseUrl + "pets/search/" + criteria);
-  console.log("log from func", response.data);
   return response.data;
 }
 export async function getPetsById(id) {
@@ -91,7 +90,7 @@ export async function adoptPet(petId, userId, token, adoptionStatus) {
 
 export async function returnPet(petId, userId, token) {
   const response = axios.post(baseUrl + `pets/pet/${petId}/return`, { userId }, getAuthConfig(token));
-  return response.data;
+  return response;
 }
 
 export async function getUserByToken(token) {

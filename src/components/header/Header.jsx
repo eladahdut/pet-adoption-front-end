@@ -12,6 +12,7 @@ function Header() {
     auth.saveAdoptedPet([]);
     auth.saveFosteredPet([]);
     auth.saveLikedPet([]);
+    auth.saveIsLoggedIn(false);
     history.push("/");
   }
 

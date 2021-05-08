@@ -35,11 +35,11 @@ function SignUpModal(props) {
             auth.saveLikedPet(data.likedPets);
             auth.saveUserType(data.userType);
             auth.saveUserName(data.userName);
+            auth.saveIsLoggedIn(true);
             history.push("/");
           }
         });
       } catch (error) {
-        console.log(error);
         alert({ Message: error });
       }
     }

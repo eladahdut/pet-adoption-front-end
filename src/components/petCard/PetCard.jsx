@@ -9,7 +9,7 @@ function PetCard(props) {
         <h5 className="card-title">{props.petName}</h5>
         <div className="d-flex justify-content-between">
           <span className="card-text">{props.petStatus}</span>
-          <Link to={"pet/" + props.petId}>
+          <Link to={"/pet/" + props.petId}>
             <button className="btn btn-primary">More</button>
           </Link>
         </div>

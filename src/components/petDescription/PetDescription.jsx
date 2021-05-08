@@ -45,11 +45,26 @@ function PetDescription(props) {
   }
 
   async function handleAdoption(adoptionStatus) {
-    await adoptPet(petId, auth.userId, auth.token, adoptionStatus);
+    adoptPet(petId, auth.userId, auth.token, adoptionStatus).then((data) => {
+      if (data && data.isSuccessful) {
+        if (adoptionStatus === "Adopted") {
+          auth.saveAdoptedPet(data.updatedUser.adoptedPets);
+        } else {
+          auth.saveFosteredPet(data.updatedUser.fosterdPets);
+        }
+      }
+    });
   }
 
   async function handleReturnPet() {
-    await returnPet(petId, auth.userId, auth.token);
+    returnPet(petId, auth.userId, auth.token).then((data) => {
+      if (data.data && data.data.isSuccessful) {
+        setAdoptedPets([]);
+        setFosteredPets([]);
+        auth.saveAdoptedPet(data.data.updatedUser.adoptedPets);
+        auth.saveFosteredPet(data.data.updatedUser.fosterdPets);
+      }
+    });
   }
 
   function checkLikedPet(petId) {
@@ -109,49 +124,53 @@ function PetDescription(props) {
         </div>
       </div>
       <div className="d-block">
-        <div
-          style={{ width: "110%" }}
-          className="btn-group-vertical"
-          role="group">
-          {checkFosteredPet(petId) || checkAdoptedPet(petId) ? (
-            <button
-              onClick={handleReturnPet}
-              type="button"
-              className="btn btn-primary m-1 ms-3">
-              Return pet :(
-            </button>
-          ) : (
-            <>
+        {auth.isLoggedIn ? (
+          <div
+            style={{ width: "110%" }}
+            className="btn-group-vertical"
+            role="group">
+            {checkFosteredPet(petId) || checkAdoptedPet(petId) ? (
               <button
-                onClick={() => handleAdoption("Adopted")}
+                onClick={handleReturnPet}
                 type="button"
                 className="btn btn-primary m-1 ms-3">
-                Adopt
+                Return pet :(
               </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => handleAdoption("Adopted")}
+                  type="button"
+                  className="btn btn-primary m-1 ms-3">
+                  Adopt
+                </button>
+                <button
+                  onClick={() => handleAdoption("Fostered")}
+                  type="button"
+                  className="btn btn-primary m-1 ms-3">
+                  Foster
+                </button>
+              </>
+            )}
+            {checkLikedPet(petId) ? (
               <button
-                onClick={() => handleAdoption("Fostered")}
+                onClick={handleLikePet}
                 type="button"
                 className="btn btn-primary m-1 ms-3">
-                Foster
+                disLike
               </button>
-            </>
-          )}
-          {checkLikedPet(petId) ? (
-            <button
-              onClick={handleLikePet}
-              type="button"
-              className="btn btn-primary m-1 ms-3">
-              disLike
-            </button>
-          ) : (
-            <button
-              onClick={handleLikePet}
-              type="button"
-              className="btn btn-primary m-1 ms-3">
-              Like
-            </button>
-          )}
-        </div>
+            ) : (
+              <button
+                onClick={handleLikePet}
+                type="button"
+                className="btn btn-primary m-1 ms-3">
+                Like
+              </button>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

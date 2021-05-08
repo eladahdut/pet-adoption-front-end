@@ -9,9 +9,11 @@ export const AuthContext = createContext({
   userId: "",
   userType: 2,
   userName: "",
+  isLoggedIn: false,
   adoptedPets: [],
   fosteredPets: [],
   likedPets: [],
+  saveIsLoggedIn: (bool) => {},
   saveToken: async (token) => {},
   removeToken: async () => {},
   saveUserId: async (userId) => {},
@@ -38,9 +40,14 @@ const AuthProvider = (props) => {
   const [likedPets, setLikedPets] = useState([]);
   const [userType, setUserType] = useState();
   const [userName, setUserName] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const saveUserType = (userType) => {
     setUserType(userType);
+  };
+
+  const saveIsLoggedIn = (bool) => {
+    setIsLoggedIn(bool);
   };
 
   const saveUserName = (userName) => {
@@ -80,6 +87,7 @@ const AuthProvider = (props) => {
           saveLikedPet(data.data.likedPets);
           saveUserType(data.data.userType);
           saveUserName(data.data.userName);
+          saveIsLoggedIn(true);
         }
       } catch (error) {
         console.log(error);
@@ -106,6 +114,7 @@ const AuthProvider = (props) => {
         isInitiallyLoaded,
         userType,
         userName,
+        isLoggedIn,
         saveToken,
         removeToken,
         saveUserId,
@@ -117,6 +126,7 @@ const AuthProvider = (props) => {
         saveLikedPet,
         saveUserType,
         saveUserName,
+        saveIsLoggedIn,
       }}>
       {props.children}
     </AuthContext.Provider>

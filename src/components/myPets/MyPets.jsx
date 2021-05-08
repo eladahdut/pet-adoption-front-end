@@ -15,14 +15,12 @@ function MyPets() {
       const pets = await getUserPets(auth.userId, auth.token);
       setLikedPets(pets.likedPets);
       setOwnedPets(pets.ownedPets);
-      console.log(pets);
     }
     fetchUserPets();
   }, []);
 
-  useEffect(() => {
-    console.log(showLikedPets);
-  }, [showLikedPets]);
+  // useEffect(() => {
+  // }, [showLikedPets]);
 
   return (
     <div className="text-center">

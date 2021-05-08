@@ -42,7 +42,6 @@ function DisplayUser() {
       <div className="d-flex justify-content-evenly">
         {userPets ? (
           userPets.likedPets.map((pet) => {
-            console.log("log from liked pets", pet);
             return (
               <PetCard
                 key={pet._id}
@@ -65,7 +64,6 @@ function DisplayUser() {
       <div className="d-flex justify-content-evenly">
         {userPets ? (
           userPets.ownedPets.map((pet) => {
-            console.log("log from owned pets", pet);
             return (
               <PetCard
                 key={pet._id}

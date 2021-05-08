@@ -43,7 +43,6 @@ function ProfileSettings() {
       // auth.saveToken(data.userToken);
       // auth.saveUserId(data.userId);
     } catch (error) {
-      console.log(error);
       alert(error);
     }
   };
@@ -110,8 +109,7 @@ function ProfileSettings() {
           <textarea
             onChange={(e) => setBio(e.target.value)}
             className="form-control"
-            placeholder="..."
-          ></textarea>
+            placeholder="..."></textarea>
           <label htmlFor="floatingTextarea">Add short bio</label>
         </div>
         <br />
