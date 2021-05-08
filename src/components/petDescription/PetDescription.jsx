@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { getPetsById, likePet, unlikePet, adoptPet } from "../../lib/api";
+import {
+  getPetsById,
+  likePet,
+  unlikePet,
+  adoptPet,
+  returnPet,
+} from "../../lib/api";
 import { useAuth } from "../../context/auth";
 
 function PetDescription(props) {
   const [petData, setPetData] = useState({});
   const [likedPets, setLikedPets] = useState([]);
+  const [adoptedPets, setAdoptedPets] = useState([]);
+  const [fosteredPets, setFosteredPets] = useState([]);
   const petId = props.match.params.petId;
   const auth = useAuth();
-  const userId = auth.userId;
-  const token = auth.token;
 
   useEffect(async () => {
     const petData = await getPetsById(petId);
@@ -19,6 +25,14 @@ function PetDescription(props) {
     setLikedPets([]);
     setLikedPets(auth.likedPets);
   }, [auth.likedPets]);
+  useEffect(() => {
+    setFosteredPets([]);
+    setFosteredPets(auth.fosteredPets);
+  }, [auth.fosteredPets]);
+  useEffect(() => {
+    setAdoptedPets([]);
+    setAdoptedPets(auth.adoptedPets);
+  }, [auth.adoptedPets]);
 
   async function handleLikePet() {
     if (checkLikedPet(petId)) {
@@ -29,13 +43,23 @@ function PetDescription(props) {
       auth.saveLikedPet(data);
     }
   }
-  async function handleAdoption() {
-    const response = await adoptPet(petId, userId);
-    console.log(response);
+
+  async function handleAdoption(adoptionStatus) {
+    await adoptPet(petId, auth.userId, auth.token, adoptionStatus);
+  }
+
+  async function handleReturnPet() {
+    await returnPet(petId, auth.userId, auth.token);
   }
 
   function checkLikedPet(petId) {
     return likedPets.includes(petId);
+  }
+  function checkAdoptedPet(petId) {
+    return adoptedPets.includes(petId);
+  }
+  function checkFosteredPet(petId) {
+    return fosteredPets.includes(petId);
   }
 
   return (
@@ -76,7 +100,7 @@ function PetDescription(props) {
               Hypoallergenic: <span>{petData.hypoallerganic}</span>
             </div>
             <div>
-              dietary restrictions: <span>{petData.dietryRestrictions}</span>
+              dietary restrictions: <span>{petData.dietaryRestrictions}</span>
             </div>
             <div>
               breed of animal: <span>{petData.breed}</span>
@@ -89,18 +113,29 @@ function PetDescription(props) {
           style={{ width: "110%" }}
           className="btn-group-vertical"
           role="group">
-          <button type="button" className="btn btn-primary m-1 ms-3">
-            return pet (only visible for owner)
-          </button>
-          <button
-            onClick={handleAdoption}
-            type="button"
-            className="btn btn-primary m-1 ms-3">
-            adopt
-          </button>
-          <button type="button" className="btn btn-primary m-1 ms-3">
-            foster
-          </button>
+          {checkFosteredPet(petId) || checkAdoptedPet(petId) ? (
+            <button
+              onClick={handleReturnPet}
+              type="button"
+              className="btn btn-primary m-1 ms-3">
+              Return pet :(
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={() => handleAdoption("Adopted")}
+                type="button"
+                className="btn btn-primary m-1 ms-3">
+                Adopt
+              </button>
+              <button
+                onClick={() => handleAdoption("Fostered")}
+                type="button"
+                className="btn btn-primary m-1 ms-3">
+                Foster
+              </button>
+            </>
+          )}
           {checkLikedPet(petId) ? (
             <button
               onClick={handleLikePet}
