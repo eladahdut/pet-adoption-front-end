@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function PetCard(props) {
   return (
-    <div className="card text-center mb-4" style={{ width: "14rem" }}>
+    <div className="card text-center mb-4 m-2" style={{ width: "14rem" }}>
       <img src={props.petImage} className="card-img-top" />
       <div className="card-body">
         <h5 className="card-title">{props.petName}</h5>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import PetCard from "../petCard/PetCard";
 import Input from "@material-ui/core/Input";
@@ -103,7 +102,7 @@ function Search() {
       <br />
       <br />
       <br />
-      <div className="container d-flex flex-wrap justify-content-between">
+      <div className="container d-flex justify-content-center">
         {searchResults ? (
           searchResults.map((pet) => {
             return (

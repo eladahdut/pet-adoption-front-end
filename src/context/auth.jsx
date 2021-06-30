@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import localforage from "localforage";
 import { getUserByToken } from "../lib/api";
-import { useScrollTrigger } from "@material-ui/core";
 
 export const AuthContext = createContext({
   isInitiallyLoaded: false,
@@ -127,7 +126,8 @@ const AuthProvider = (props) => {
         saveUserType,
         saveUserName,
         saveIsLoggedIn,
-      }}>
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );
