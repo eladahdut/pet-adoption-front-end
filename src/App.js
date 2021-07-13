@@ -48,27 +48,6 @@ const AppRouter = () => {
     <Router>
       <Header />
       <Switch>
-        {/* <Route path="/signup">
-          {auth.token && <Redirect to="/" />}
-          {!auth.token && <h1>Signup</h1>}
-        </Route>
-        <Route path="/login">
-          {auth.token && <Redirect to="/" />}
-          {!auth.token && <Login />}
-        </Route>
-        <PrivateRoute path="/products/new">
-          <ProductForm />
-        </PrivateRoute>
-        <PrivateRoute path="/products/:productId">
-          <Product />
-        </PrivateRoute>
-        <PrivateRoute exact path="/products">
-          <MyProducts />
-        </PrivateRoute> */}
-        {/* <PrivateRoute path="/">
-          <HomePage />
-          <Redirect to="/products" />
-        </PrivateRoute> */}
         <Route
           exact
           path="/settings/:userId"

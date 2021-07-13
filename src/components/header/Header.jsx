@@ -20,17 +20,17 @@ function Header() {
   return (
     <header
       id="header"
-      className="container-fluid  border d-flex justify-content-between"
+      // className="container-fluid  border d-flex justify-content-between"
     >
-      <div className="d-flex justify-content-center">
+      <div className="d-block">
         <img src="images/navBarLogo.jpg" alt="app-logo" />
         {/* <Link className="text-dark btn btn-link" to="/">
           Home
         </Link> */}
       </div>
       {auth.token ? (
-        <div className="d-flex justify-content-evenly">
-          <div className="row">
+        <div className="d-flex align-items-center justify-content-between flex-grow-1">
+          <div>
             <button onClick={logout} className="btn btn-link text-danger">
               Logout
             </button>
@@ -46,11 +46,15 @@ function Header() {
             )}
           </div>
 
-          <h1 className="text-secondary display-4">Pet Adoption Agency</h1>
+          <h1
+            style={{ marginRight: "17%" }}
+            className="text-secondary display-4">
+            Pet Adoption Agency
+          </h1>
 
           <div className="d-flex flex-column justify-content-center">
             <img
-              style={{ width: "25%", marginLeft: "15%", marginTop: "5%" }}
+              // style={{ width: "25%", marginLeft: "15%", marginTop: "5%" }}
               src="images/paw-solid.svg"
               alt="app-logo"
             />

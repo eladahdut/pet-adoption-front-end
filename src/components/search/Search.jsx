@@ -65,8 +65,7 @@ function Search() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            onChange={(e) => setType(e.target.value)}
-          >
+            onChange={(e) => setType(e.target.value)}>
             <MenuItem value="">Any Type</MenuItem>
             <MenuItem value="Dog">Dog</MenuItem>
             <MenuItem value="Cat">Cat</MenuItem>
@@ -88,8 +87,7 @@ function Search() {
             style={{ marginRight: "10%" }}
             className={classes.root}
             noValidate
-            autoComplete="off"
-          >
+            autoComplete="off">
             <Input
               onChange={(e) => setType(e.target.value)}
               style={{ width: "170%" }}
@@ -102,7 +100,7 @@ function Search() {
       <br />
       <br />
       <br />
-      <div className="container d-flex justify-content-center">
+      <div className="container d-flex flex-wrap justify-content-between">
         {searchResults ? (
           searchResults.map((pet) => {
             return (

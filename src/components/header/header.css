@@ -1,8 +1,10 @@
 #header {
+  width: 100%;
+  height: 19vh;
   background-color: #f8f9fa;
-  height: 11vh;
   align-items: center;
-  overflow: hidden;
   font-family: "Yellowtail", cursive;
-  color: blueviolet;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px 0px 3px;
 }

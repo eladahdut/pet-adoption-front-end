@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { getUserById } from "../../lib/api";
+import "./homePage.css";
 
 function HomePage() {
   const auth = useAuth();
@@ -40,7 +41,9 @@ function HomePage() {
         </>
       ) : (
         <>
-          <h2 className="display-4">welcome back {userName}</h2>
+          <h2 id="welcome-back" className="display-4">
+            welcome back {userName}
+          </h2>
           <div
             className="btn-group-vertical"
             role="group"
