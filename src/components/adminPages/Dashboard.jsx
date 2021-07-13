@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Dashboard() {
   return (
     <div className="container mt-5 d-flex flex-column align-items-center">
-      <h2 className="text-center m-3">Hello mister user</h2>
+      <h2 className="text-center m-3">Welcome Admin</h2>
       <ul className="list-group col-lg-6">
         <Link to="/pet" className="list-group-item">
           Create new pet

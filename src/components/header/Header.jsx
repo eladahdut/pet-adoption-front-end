@@ -38,7 +38,7 @@ function Header() {
               Settings
             </Link>
             {auth.userType == 1 ? (
-              <Link className="link text-dark" to={"/dashboard"}>
+              <Link className="link text-dark ms-3" to={"/dashboard"}>
                 Dashboard
               </Link>
             ) : (

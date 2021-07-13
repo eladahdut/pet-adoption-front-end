@@ -67,7 +67,13 @@ function AddPet() {
   return (
     <div className="container">
       <form
-        className="d-flex justify-content-center"
+        style={{
+          background: "#2981d92e",
+          width: "90%",
+          paddingRight: "10%",
+          marginLeft: "5%",
+        }}
+        className="mt-3 d-flex justify-content-center"
         noValidate
         autoComplete="off">
         <div className={classes.root}>

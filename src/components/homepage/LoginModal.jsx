@@ -46,7 +46,7 @@ function LogSigModal(props) {
         history.push("/");
         setIsOpen(!!isModalOpen);
       } catch (error) {
-        alert(error);
+        alert(error.response.data.message);
       }
     }
   };
