@@ -24,7 +24,7 @@ function LogSigBtn() {
   return (
     <div>
       <button
-        style={{ padding: "0", marginTop: "0.7rem" }}
+        style={{ padding: "7px", marginTop: "0.7rem" }}
         onClick={toggleModal}
         type="button"
         className="btn btn-outline-dark btn-round"

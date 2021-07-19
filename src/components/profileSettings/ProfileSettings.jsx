@@ -30,6 +30,7 @@ function ProfileSettings() {
 
     try {
       const data = await updateUserInfo(
+        auth.token,
         firstName,
         lastName,
         phone,
@@ -38,12 +39,10 @@ function ProfileSettings() {
         userId
       );
       if (data) {
-        alert("User updated succefuly");
+        alert("User updated successfully");
       }
-      // auth.saveToken(data.userToken);
-      // auth.saveUserId(data.userId);
     } catch (error) {
-      alert(error);
+      alert(error.response.data);
     }
   };
 
@@ -105,13 +104,7 @@ function ProfileSettings() {
             className="form-control"
           />
         </div>
-        <div className="form-floating">
-          <textarea
-            onChange={(e) => setBio(e.target.value)}
-            className="form-control"
-            placeholder="..."></textarea>
-          <label htmlFor="floatingTextarea">Add short bio</label>
-        </div>
+
         <br />
         <button type="submit" className="btn btn-primary">
           Save changes

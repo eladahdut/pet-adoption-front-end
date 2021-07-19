@@ -20,7 +20,7 @@ function HomePage() {
       <br />
       {!auth.token ? (
         <>
-          <div className="container col-6 bg-light rounded p-3">
+          <div className="container col-6 bg-light border shadow p-3 mb-5 bg-body rounded">
             Petfinder is only a directory of homeless pets and pet adoption
             organizations. No information in Petfinder is guaranteed. Although
             the information on Petfinder is updated frequently, it is always
@@ -44,20 +44,21 @@ function HomePage() {
           <h2 id="welcome-back" className="display-4">
             welcome back {userName}
           </h2>
-          <div
-            className="btn-group-vertical"
-            role="group"
-            aria-label="Basic example">
+          <hr
+            style={{ color: "antiquewhite", border: "3px solid antiquewhite" }}
+          />
+          <div className="btn-group-vertical" role="group">
             <Link to="/search">
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-outline-dark">
                 Search a pet
               </button>
             </Link>
+            <br />
             <Link to={"/pet/user/" + auth.userId}>
               <button
                 style={{ width: "139%" }}
                 type="button"
-                className="btn btn-warning">
+                className="btn btn-outline-dark">
                 My Pets
               </button>
             </Link>
