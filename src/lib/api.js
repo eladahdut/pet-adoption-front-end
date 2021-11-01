@@ -10,7 +10,7 @@ function getAuthConfig(token) {
   };
 }
 export async function addNewPet(pet, token) {
-  const response = axios.post(baseUrl + "pets/pet", pet, getAuthConfig(token))
+  const response = axios.post(baseUrl + "pets/pet", pet, getAuthConfig(token));
   return response.data;
 }
 export async function signup(
@@ -53,9 +53,10 @@ export async function updateUserInfo(
   const response = await axios.put(
     baseUrl + "users/user/" + id,
     { firstName, lastName, phone, email, password },
-    { headers: { 'auth-token': token }, }
+    { headers: { "auth-token": token } }
     // getAuthConfig(token)
   );
+  console.log(password);
   return response.data;
 }
 
@@ -78,29 +79,35 @@ export async function likePet(petId, userId) {
   return response.data;
 }
 export async function unlikePet(petId, userId) {
-  const response = await axios.delete(baseUrl + "pets/pet/" + petId + "/save/" + userId);
+  const response = await axios.delete(
+    baseUrl + "pets/pet/" + petId + "/save/" + userId
+  );
   return response.data;
 }
 export async function adoptPet(petId, userId, token, adoptionStatus) {
-  const response = await axios.post(baseUrl + "pets/pet/" + petId + "/adopt", { userId, adoptionStatus }
-    ,
+  const response = await axios.post(
+    baseUrl + "pets/pet/" + petId + "/adopt",
+    { userId, adoptionStatus },
     getAuthConfig(token)
   );
   return response.data;
 }
 
 export async function returnPet(petId, userId, token) {
-  const response = axios.post(baseUrl + `pets/pet/${petId}/return`, { userId }, getAuthConfig(token));
+  const response = axios.post(
+    baseUrl + `pets/pet/${petId}/return`,
+    { userId },
+    getAuthConfig(token)
+  );
   return response;
 }
 
 export async function getUserByToken(token) {
-  const response = axios.get(baseUrl + "users/user/token",
-    { headers: { 'auth-token': token } }
-  )
+  const response = axios.get(baseUrl + "users/user/token", {
+    headers: { "auth-token": token },
+  });
   return response;
 }
-
 
 export async function getUserById(id, token) {
   const response = await axios.get(
@@ -111,28 +118,24 @@ export async function getUserById(id, token) {
 }
 
 export async function getAllUsers(token) {
-  const response = await axios.get(
-    baseUrl + "users",
-    getAuthConfig(token)
-  );
+  const response = await axios.get(baseUrl + "users", getAuthConfig(token));
   return response.data;
 }
 
 export async function getUserPets(userId, token) {
   const response = await axios.get(
-    baseUrl + "pets/pet/user/" + userId, getAuthConfig(token))
+    baseUrl + "pets/pet/user/" + userId,
+    getAuthConfig(token)
+  );
   return response.data;
 }
 
 export async function uploadPic(token, file) {
-  const response = await axios.post(
-    baseUrl + "pets/picture", file, {
+  const response = await axios.post(baseUrl + "pets/picture", file, {
     headers: {
       "Content-Type": "multipart/form-data",
-      "auth-token": token
-    }
-  }
-  )
+      "auth-token": token,
+    },
+  });
   return response.data;
 }
-

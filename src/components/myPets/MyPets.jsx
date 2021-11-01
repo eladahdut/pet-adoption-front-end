@@ -60,6 +60,7 @@ function MyPets() {
       {showLikedPets ? (
         likedPets.length ? (
           likedPets.map((pet, i) => {
+            console.log(pet);
             return (
               <PetCard
                 key={i}

@@ -65,7 +65,8 @@ function Search() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            onChange={(e) => setType(e.target.value)}>
+            onChange={(e) => setType(e.target.value)}
+          >
             <MenuItem value="">Any Type</MenuItem>
             <MenuItem value="Dog">Dog</MenuItem>
             <MenuItem value="Cat">Cat</MenuItem>
@@ -87,7 +88,8 @@ function Search() {
             style={{ marginRight: "10%" }}
             className={classes.root}
             noValidate
-            autoComplete="off">
+            autoComplete="off"
+          >
             <Input
               onChange={(e) => setType(e.target.value)}
               style={{ width: "170%" }}
@@ -107,7 +109,7 @@ function Search() {
               <PetCard
                 key={pet._id}
                 petId={pet._id}
-                petImage={pet.img}
+                petImage={pet.picture}
                 petName={pet.name}
                 petStatus={pet.adoptionStatus}
               />
