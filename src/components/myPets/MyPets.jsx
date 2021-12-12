@@ -58,7 +58,7 @@ function MyPets() {
       <br />
       <br />
       {showLikedPets ? (
-        likedPets.length ? (
+        likedPets?.length ? (
           likedPets.map((pet, i) => {
             console.log(pet);
             return (
@@ -74,7 +74,7 @@ function MyPets() {
         ) : (
           <h3>You do not have any liked pets</h3>
         )
-      ) : ownedPets.length ? (
+      ) : ownedPets?.length ? (
         ownedPets.map((pet, i) => {
           return (
             <PetCard

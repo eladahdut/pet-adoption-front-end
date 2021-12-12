@@ -5,6 +5,10 @@
   align-items: center;
   font-family: "Yellowtail", cursive;
   display: flex;
-  justify-content: space-between;
-  padding: 0px 20px 0px 3px;
+  flex-flow: row;
+  justify-content: space-around;
+}
+
+.fa-paw {
+  font-size: 50px;
 }

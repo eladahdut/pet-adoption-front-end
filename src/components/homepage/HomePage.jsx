@@ -20,7 +20,7 @@ function HomePage() {
       <br />
       {!auth.token ? (
         <>
-          <div className="container col-6 bg-light border shadow p-3 mb-5 bg-body rounded">
+          <div className="container preview col-6 border shadow p-3 mb-5 rounded">
             Petfinder is only a directory of homeless pets and pet adoption
             organizations. No information in Petfinder is guaranteed. Although
             the information on Petfinder is updated frequently, it is always

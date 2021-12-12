@@ -18,16 +18,8 @@ function Header() {
   }
 
   return (
-    <header
-      id="header"
-      // className="container-fluid  border d-flex justify-content-between"
-    >
-      <div className="d-block">
-        <img src="images/navBarLogo.jpg" alt="app-logo" />
-        {/* <Link className="text-dark btn btn-link" to="/">
-          Home
-        </Link> */}
-      </div>
+    <header id="header">
+      {/* <div className="d-block"></div> */}
       {auth.token ? (
         <div className="d-flex align-items-center justify-content-between flex-grow-1">
           <div>
@@ -65,6 +57,7 @@ function Header() {
         </div>
       ) : (
         <>
+          <i class="fas fa-paw"></i>
           <h1 className="me-5 display-5">Welcome To The Pet Adoption Agency</h1>
           <LogSigBtn />
         </>
