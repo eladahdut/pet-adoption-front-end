@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/pet-adoption-front-end/static/css/main.a90dd4c4.chunk.css",
+    "main.js": "/pet-adoption-front-end/static/js/main.8ff04095.chunk.js",
+    "main.js.map": "/pet-adoption-front-end/static/js/main.8ff04095.chunk.js.map",
+    "runtime-main.js": "/pet-adoption-front-end/static/js/runtime-main.707336db.js",
+    "runtime-main.js.map": "/pet-adoption-front-end/static/js/runtime-main.707336db.js.map",
+    "static/js/2.7d4ed993.chunk.js": "/pet-adoption-front-end/static/js/2.7d4ed993.chunk.js",
+    "static/js/2.7d4ed993.chunk.js.map": "/pet-adoption-front-end/static/js/2.7d4ed993.chunk.js.map",
+    "static/js/3.5cb34d4f.chunk.js": "/pet-adoption-front-end/static/js/3.5cb34d4f.chunk.js",
+    "static/js/3.5cb34d4f.chunk.js.map": "/pet-adoption-front-end/static/js/3.5cb34d4f.chunk.js.map",
+    "index.html": "/pet-adoption-front-end/index.html",
+    "static/css/main.a90dd4c4.chunk.css.map": "/pet-adoption-front-end/static/css/main.a90dd4c4.chunk.css.map",
+    "static/js/2.7d4ed993.chunk.js.LICENSE.txt": "/pet-adoption-front-end/static/js/2.7d4ed993.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.707336db.js",
+    "static/js/2.7d4ed993.chunk.js",
+    "static/css/main.a90dd4c4.chunk.css",
+    "static/js/main.8ff04095.chunk.js"
+  ]
+}
