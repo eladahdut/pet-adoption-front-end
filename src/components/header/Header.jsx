@@ -21,7 +21,7 @@ function Header() {
     <header id="header">
       {/* <div className="d-block"></div> */}
       {auth.token ? (
-        <div className="d-flex align-items-center justify-content-between flex-grow-1">
+        <div className="d-flex align-items-center justify-content-evenly flex-grow-1">
           <div>
             <button onClick={logout} className="btn btn-link text-danger">
               Logout
@@ -29,7 +29,7 @@ function Header() {
             <Link className="link text-dark" to={"/settings/" + auth.userId}>
               Settings
             </Link>
-            {auth.userType == 1 ? (
+            {auth.userType === 1 ? (
               <Link className="link text-dark ms-3" to={"/dashboard"}>
                 Dashboard
               </Link>
@@ -38,18 +38,12 @@ function Header() {
             )}
           </div>
 
-          <h1
-            style={{ marginRight: "17%" }}
-            className="text-secondary display-4">
+          <h1 className="text-secondary text-center display-4">
             Pet Adoption Agency
           </h1>
 
-          <div className="d-flex flex-column justify-content-center">
-            <img
-              // style={{ width: "25%", marginLeft: "15%", marginTop: "5%" }}
-              src="images/paw-solid.svg"
-              alt="app-logo"
-            />
+          <div className="d-flex flex-column justify-content-center align-items-center">
+            <i class="fas fa-paw"></i>
             <Link to="/">
               <button className="text-dark btn btn-link">Home</button>
             </Link>
